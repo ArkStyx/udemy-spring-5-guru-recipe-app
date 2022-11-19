@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import guru.springframework.recipe.app.domain.enums.Difficulty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +41,9 @@ public class Recipe {
 	
 	@Lob
 	private Byte[] image;
+	
+	@Enumerated(value = EnumType.STRING)
+	private Difficulty difficulty;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Notes notes;
