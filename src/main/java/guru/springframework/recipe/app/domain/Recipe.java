@@ -1,5 +1,6 @@
 package guru.springframework.recipe.app.domain;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,10 +36,12 @@ public class Recipe {
 	private Integer serving;
 	private String source;
 	private String url;
+	
+	@Lob
 	private String directions;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-	private Set<Ingredient> ingredients;
+	private Set<Ingredient> ingredients = new LinkedHashSet<>();
 	
 	@Lob
 	private Byte[] image;
@@ -54,5 +57,5 @@ public class Recipe {
 		joinColumns = @JoinColumn(name = "tb_recipe_id"), 
 		inverseJoinColumns = @JoinColumn(name = "tb_category_id")
 	)
-	private Set<Category> categories;
+	private Set<Category> categories = new LinkedHashSet<>();
 }
