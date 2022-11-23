@@ -3,6 +3,7 @@ package guru.springframework.recipe.app.bootstrap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -36,11 +37,14 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		saveRecipeGuacamole();
-		saveRecipeGrilledChickenTacos();
+		List<Recipe> listeRecettes = new LinkedList<>();
+		listeRecettes.add(recupererRecetteGuacamole());
+		listeRecettes.add(recupererRecetteGrilledChickenTacos());
+		
+		recipeRepository.saveAll(listeRecettes);
 	}
 	
-	private void saveRecipeGuacamole() {
+	private Recipe recupererRecetteGuacamole() {
 		Recipe recetteGuacamole = new Recipe();
 		
 		UnitOfMeasure teaspoon = recupererUniteDeMesure("Teaspoon");
@@ -166,10 +170,10 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 		recetteGuacamole.setSource("Simply Recipes");
 		recetteGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
 		
-		recipeRepository.save(recetteGuacamole);
+		return recetteGuacamole;
 	}
 
-	private void saveRecipeGrilledChickenTacos() {
+	private Recipe recupererRecetteGrilledChickenTacos() {
 		Recipe recetteTacos = new Recipe();
 		
 		UnitOfMeasure teaspoon = recupererUniteDeMesure("Teaspoon");
@@ -367,7 +371,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 		recetteTacos.setSource("Simply Recipes");
 		recetteTacos.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
 
-		recipeRepository.save(recetteTacos);
+		return recetteTacos;
 	}
 	
 	private UnitOfMeasure recupererUniteDeMesure(String uniteDeMesure) {
