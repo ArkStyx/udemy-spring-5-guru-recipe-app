@@ -58,4 +58,20 @@ public class Recipe {
 		inverseJoinColumns = @JoinColumn(name = "tb_category_id")
 	)
 	private Set<Category> categories = new LinkedHashSet<>();
+	
+	
+	/* Setter Custom qui vont remplacer les setter définis par Lombok */
+	public void setNotes(Notes notes) {
+		this.notes = notes;
+		notes.setRecipe(this);
+	}
+	
+	
+	/* Autres methodes custom */
+	public Recipe addIngredient(Ingredient ingredient) {
+		ingredient.setRecipe(this);
+		this.ingredients.add(ingredient);
+		return this;
+	}
+	
 }
