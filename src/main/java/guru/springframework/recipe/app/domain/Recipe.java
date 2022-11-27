@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import guru.springframework.recipe.app.domain.enums.Difficulty;
 import lombok.Getter;
@@ -23,7 +24,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "tb_recipe")
+@Entity
+@Table(name = "tb_recipe")
 public class Recipe {
 
 	@Id
