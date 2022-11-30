@@ -26,7 +26,9 @@ import guru.springframework.recipe.app.repositories.RecipeRepository;
 import guru.springframework.recipe.app.repositories.UnitOfMeasureRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 @Component
 public class BootStrapData implements ApplicationListener<ContextRefreshedEvent> {
@@ -37,11 +39,14 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+		
 		List<Recipe> listeRecettes = new LinkedList<>();
 		listeRecettes.add(recupererRecetteGuacamole());
 		listeRecettes.add(recupererRecetteGrilledChickenTacos());
-		
+		log.info("Chargement des recettes effectue");
+
 		recipeRepository.saveAll(listeRecettes);
+		log.info("Sauvegarde des recettes effectuee");
 	}
 	
 	private Recipe recupererRecetteGuacamole() {
