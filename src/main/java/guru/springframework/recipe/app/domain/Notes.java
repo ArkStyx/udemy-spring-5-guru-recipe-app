@@ -8,11 +8,13 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = "recipe")
+@ToString(exclude = "recipe")
 @Entity
 @Table(name = "tb_notes")
 public class Notes {
