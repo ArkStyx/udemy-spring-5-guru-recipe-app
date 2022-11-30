@@ -19,11 +19,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import guru.springframework.recipe.app.domain.enums.Difficulty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = {"ingredients", "categories"})
+@ToString(exclude = {"ingredients", "categories"})
 @Entity
 @Table(name = "tb_recipe")
 public class Recipe {

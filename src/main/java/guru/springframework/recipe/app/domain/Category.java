@@ -9,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = "recipes")
+@ToString(exclude = "recipes")
 @Entity
 @Table(name = "tb_category")
 public class Category {
