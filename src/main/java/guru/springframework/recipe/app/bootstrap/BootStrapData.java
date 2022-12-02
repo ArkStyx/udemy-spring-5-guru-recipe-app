@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -38,6 +40,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 	private final UnitOfMeasureRepository unitOfMeasureRepository;
 
 	@Override
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		
 		List<Recipe> listeRecettes = new LinkedList<>();
