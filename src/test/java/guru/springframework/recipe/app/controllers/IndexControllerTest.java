@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,6 +17,14 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
+import org.springframework.test.web.servlet.result.ViewResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import guru.springframework.recipe.app.domain.Recipe;
@@ -78,6 +88,18 @@ class IndexControllerTest {
 		
 		Set<Recipe> retourArgumentCaptorSetRecipe = argumentCaptorSetRecipe.getValue();
 		assertEquals(2, retourArgumentCaptorSetRecipe.size());
+	}
+	
+	@Test
+	void testMockMVC() throws Exception {
+
+		String rootContext = "/";
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(rootContext);
+		ResultMatcher resultMatchersStatusOk = status().isOk();
+		ResultMatcher resultMatchersViewNameIndex = view().name("index");
+		
+		MockMvc mockMVC = MockMvcBuilders.standaloneSetup(indexController).build();
+		mockMVC.perform(requestBuilder).andExpect(resultMatchersStatusOk).andExpect(resultMatchersViewNameIndex);
 	}
 
 }
