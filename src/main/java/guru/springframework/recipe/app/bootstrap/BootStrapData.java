@@ -1,7 +1,6 @@
 package guru.springframework.recipe.app.bootstrap;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,8 +10,6 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -26,7 +23,6 @@ import guru.springframework.recipe.app.domain.enums.Difficulty;
 import guru.springframework.recipe.app.repositories.CategoryRepository;
 import guru.springframework.recipe.app.repositories.RecipeRepository;
 import guru.springframework.recipe.app.repositories.UnitOfMeasureRepository;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
