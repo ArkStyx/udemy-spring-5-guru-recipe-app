@@ -22,4 +22,9 @@ public class RecipeServiceImpl implements RecipeService {
 		return recipeSet;
 	}
 
+	@Override
+	public Recipe getRecipeById(Long id) {
+		return recipeRepository.findById(id).orElseThrow(() -> new RuntimeException("Aucune recette trouvée"));
+	}
+
 }

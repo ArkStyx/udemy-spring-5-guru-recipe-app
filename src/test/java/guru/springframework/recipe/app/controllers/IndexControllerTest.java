@@ -92,11 +92,11 @@ class IndexControllerTest {
 
 		String rootContext = "/";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(rootContext);
-		ResultMatcher resultMatchersStatusOk = status().isOk();
-		ResultMatcher resultMatchersViewNameIndex = view().name("index");
+		ResultMatcher resultMatcherStatusOk = status().isOk();
+		ResultMatcher resultMatcherViewNameIndex = view().name("index");
 		
 		MockMvc mockMVC = MockMvcBuilders.standaloneSetup(indexController).build();
-		mockMVC.perform(requestBuilder).andExpect(resultMatchersStatusOk).andExpect(resultMatchersViewNameIndex);
+		mockMVC.perform(requestBuilder).andExpect(resultMatcherStatusOk).andExpect(resultMatcherViewNameIndex);
 	}
 
 }
