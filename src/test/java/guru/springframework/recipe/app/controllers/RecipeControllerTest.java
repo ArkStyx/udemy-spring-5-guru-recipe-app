@@ -2,6 +2,7 @@ package guru.springframework.recipe.app.controllers;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -49,8 +50,12 @@ class RecipeControllerTest {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(rootContext);
 		ResultMatcher resultMatcherStatusOk = status().isOk();
 		ResultMatcher resultMatcherViewNameIndex = view().name("recettes/voirRecetteParId");
+		ResultMatcher resultMatcherModelAttributeExists = model().attributeExists("recette");
 		
-		mockMvc.perform(requestBuilder).andExpect(resultMatcherStatusOk).andExpect(resultMatcherViewNameIndex);
+		mockMvc.perform(requestBuilder)
+				.andExpect(resultMatcherStatusOk)
+				.andExpect(resultMatcherViewNameIndex)
+				.andExpect(resultMatcherModelAttributeExists);
 	}
 
 }
