@@ -16,7 +16,7 @@ public class RecipeController {
 	
 	@RequestMapping(value = "/recipe/show/{idRecupereDansUrl}")
 	public String getRecipeById(Model model, @PathVariable("idRecupereDansUrl") Long id) {
-		String nomAttributDansTemplateThymeleaf = "recetteParId";
+		String nomAttributDansTemplateThymeleaf = "recette";
 		model.addAttribute(nomAttributDansTemplateThymeleaf, recipeService.getRecipeById(id));
 		
 		String nomRepertoireThymeleaf = "recettes";
