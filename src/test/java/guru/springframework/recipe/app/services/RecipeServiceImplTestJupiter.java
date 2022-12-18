@@ -18,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import guru.springframework.recipe.app.converters.fromcommand.RecipeCommandToRecipe;
+import guru.springframework.recipe.app.converters.fromdomain.RecipeToRecipeCommand;
 import guru.springframework.recipe.app.domain.Recipe;
 import guru.springframework.recipe.app.repositories.RecipeRepository;
 
@@ -28,10 +30,16 @@ class RecipeServiceImplTestJupiter {
 	@Mock
 	RecipeRepository recipeRepository;
 	
+	@Mock
+	RecipeCommandToRecipe recipeCommandToRecipe;
+	
+	@Mock
+	RecipeToRecipeCommand recipeToRecipeCommand;
+	
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		recipeServiceImpl = new RecipeServiceImpl(recipeRepository);
+		recipeServiceImpl = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 	}
 	
 	@Test

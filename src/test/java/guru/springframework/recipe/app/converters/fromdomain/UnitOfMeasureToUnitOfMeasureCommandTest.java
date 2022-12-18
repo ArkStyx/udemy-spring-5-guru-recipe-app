@@ -1,4 +1,4 @@
-package guru.springframework.recipe.app.converters.fromcommand;
+package guru.springframework.recipe.app.converters.fromdomain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,44 +7,47 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import guru.springframework.recipe.app.commands.CategoryCommand;
-import guru.springframework.recipe.app.domain.Category;
+import guru.springframework.recipe.app.commands.UnitOfMeasureCommand;
+import guru.springframework.recipe.app.domain.UnitOfMeasure;
 
-class CategoryCommandToCategoryTest {
+class UnitOfMeasureToUnitOfMeasureCommandTest {
 
 	private static final String DESCRIPTION = "DESCRIPTION";
 	private static final Long ID = 1L;
 	
-	CategoryCommandToCategory categoryCommandToCategory;
+	UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		categoryCommandToCategory = new CategoryCommandToCategory();
+		unitOfMeasureToUnitOfMeasureCommand = new UnitOfMeasureToUnitOfMeasureCommand();
 	}
 
 	@Test
 	void testNullParameter() {
-		assertNull(categoryCommandToCategory.convert(null));
+		assertNull(unitOfMeasureToUnitOfMeasureCommand.convert(null));
+		
 	}
+
 	@Test
 	void testEmptyParameter() {
-		assertNotNull(categoryCommandToCategory.convert(new CategoryCommand()));
+		assertNotNull(unitOfMeasureToUnitOfMeasureCommand.convert(new UnitOfMeasure()));
 	}
-	
+
 	@Test
 	void testConvert() {
 		/* Given */
-		CategoryCommand source = new CategoryCommand();
+		UnitOfMeasure source = new UnitOfMeasure();
 		source.setId(ID);
 		source.setDescription(DESCRIPTION);
 		
 		/* When */
-		Category destination = categoryCommandToCategory.convert(source);
+		UnitOfMeasureCommand destination = unitOfMeasureToUnitOfMeasureCommand.convert(source);
 		
 		/* Then */
 		assertNotNull(destination);
 		assertEquals(source.getId(), destination.getId());
 		assertEquals(source.getDescription(), destination.getDescription());
+		
 	}
 
 }
