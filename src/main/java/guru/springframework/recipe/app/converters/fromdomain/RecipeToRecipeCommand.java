@@ -17,8 +17,8 @@ import lombok.Synchronized;
 @Component
 public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
 
-	private final NotesToNotesCommand notesToNotesCommand;
 	private final IngredientToIngredientCommand ingredientToIngredientCommand;
+	private final NotesToNotesCommand notesToNotesCommand;
 	private final CategoryToCategoryCommand categoryToCategoryCommand;
 	
 	@Synchronized

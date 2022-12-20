@@ -10,8 +10,8 @@ import guru.springframework.recipe.app.domain.UnitOfMeasure;
 
 class UnitOfMeasureCommandToUnitOfMeasureTest {
 
-	private static final String DESCRIPTION = "DESCRIPTION";
 	private static final Long ID = 1L;
+	private static final String DESCRIPTION = "DESCRIPTION";
 	
 	UnitOfMeasureCommandToUnitOfMeasure unitOfMeasureConverterTest;
 	

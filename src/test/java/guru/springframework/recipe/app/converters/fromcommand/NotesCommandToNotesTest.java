@@ -12,6 +12,9 @@ import guru.springframework.recipe.app.domain.Notes;
 
 class NotesCommandToNotesTest {
 
+	private static final Long ID = 1L;
+	private static final String DESCRIPTION = "DESCRIPTION";
+	
 	NotesCommandToNotes notesCommandToNotes;
 	
 	@BeforeEach
@@ -33,8 +36,8 @@ class NotesCommandToNotesTest {
 	void testConvert() {
 		/* Given */
 		NotesCommand source = new NotesCommand();
-		source.setId(source.getId());
-		source.setRecipeNotes(source.getRecipeNotes());
+		source.setId(ID);
+		source.setRecipeNotes(DESCRIPTION);
 		
 		/* When */
 		Notes destination = notesCommandToNotes.convert(source);

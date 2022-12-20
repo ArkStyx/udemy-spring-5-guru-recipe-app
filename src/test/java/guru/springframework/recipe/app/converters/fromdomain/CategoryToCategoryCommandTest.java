@@ -10,8 +10,8 @@ import guru.springframework.recipe.app.domain.Category;
 
 class CategoryToCategoryCommandTest {
 
-	private static final String DESCRIPTION = "DESCRIPTION";
 	private static final Long ID = 1L;
+	private static final String DESCRIPTION = "DESCRIPTION";
 	
 	CategoryToCategoryCommand categoryToCategoryCommand;
 	
