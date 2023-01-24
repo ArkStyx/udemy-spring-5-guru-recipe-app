@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import guru.springframework.recipe.app.commands.RecipeCommand;
 import guru.springframework.recipe.app.converters.fromcommand.RecipeCommandToRecipe;
@@ -35,6 +36,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public RecipeCommand saveRecipeCommand(RecipeCommand command) {
 		Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
 		
