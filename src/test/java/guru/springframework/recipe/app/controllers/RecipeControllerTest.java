@@ -1,5 +1,6 @@
 package guru.springframework.recipe.app.controllers;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -11,12 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import guru.springframework.recipe.app.commands.RecipeCommand;
 import guru.springframework.recipe.app.domain.Recipe;
 import guru.springframework.recipe.app.services.RecipeService;
 
@@ -46,7 +49,7 @@ class RecipeControllerTest {
 		
 		when(recipeService.getRecipeById(anyLong())).thenReturn(recette);
 
-		String rootContext = "/recipe/show/" + idRecette;
+		String rootContext = "/recipe/" + idRecette + "/show/";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(rootContext);
 		ResultMatcher resultMatcherStatusOk = status().isOk();
 		ResultMatcher resultMatcherViewNameIndex = view().name("recettes/voirRecetteParId");
@@ -57,5 +60,55 @@ class RecipeControllerTest {
 				.andExpect(resultMatcherViewNameIndex)
 				.andExpect(resultMatcherModelAttributeExists);
 	}
+	
+	@Test
+	void testCreateRecipe() throws Exception {
+		
+		/* Given */
 
+		/* When */
+
+		/* Then */
+		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/new")).
+				andExpect(status().isOk()).
+				andExpect(view().name("recettes/formulaireNouvelleRecette")).
+				andExpect(model().attributeExists("recette"));
+		
+	}
+	
+	@Test
+	void testUpdateRecipe() throws Exception {
+		
+		/* Given */
+		Long idRecette = 2L;
+		RecipeCommand recipeCommand = new RecipeCommand();
+		recipeCommand.setId(idRecette);
+		
+		/* When */
+		when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+		
+		/* Then */
+		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/update/")).
+				andExpect(status().isOk()).
+				andExpect(view().name("recettes/formulaireNouvelleRecette")).
+				andExpect(model().attributeExists("recette"));
+	}
+
+	@Test
+	void testSaveOrUpdate() throws Exception {
+		
+		/* Given */
+		Long idRecette = 2L;
+		RecipeCommand recipeCommand = new RecipeCommand();
+		recipeCommand.setId(idRecette);
+
+		/* When */
+		when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
+		
+		/* Then */
+		mockMvc.perform(MockMvcRequestBuilders.post("/formulaireRecette").contentType(MediaType.APPLICATION_FORM_URLENCODED)).
+			andExpect(status().is3xxRedirection()).
+			andExpect(view().name("redirect:/recipe/2/show"));
+	}
+	
 }
