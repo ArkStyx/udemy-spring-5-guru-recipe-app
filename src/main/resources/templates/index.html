@@ -38,6 +38,7 @@
 										<th>Id</th>
 										<th>Recette</th>
 										<th>Voir</th>
+										<th>Mettre à jour</th>
 									</tr>
 								</thead >
 								<tr th:remove="all">
@@ -46,12 +47,18 @@
 									<td>
 										<a href="#">Voir</a>
 									</td>
+									<td>
+										<a href="#">Update</a>
+									</td>
 								</tr>
 								<tr th:each="recette : ${toutesLesRecettes}">
 									<td th:text="${recette.id}"></td >
 									<td th:text="${recette.description}"></td>
 									<td>
 										<a href="#" th:href="@{'/recipe/' + ${recette.id}} + '/show/'">Voir</a>
+									</td>
+									<td>
+										<a href="#" th:href="@{'/recipe/' + ${recette.id}} + '/update/'">Voir</a>
 									</td>
 								</tr>
 							</table >
