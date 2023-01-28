@@ -2,6 +2,8 @@ package guru.springframework.recipe.app.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -122,6 +124,17 @@ class RecipeControllerTest {
 				andExpect(status().isOk()).
 				andExpect(view().name("recettes/formulaireNouvelleRecette")).
 				andExpect(model().attributeExists("recette"));
+	}
+	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testDeleteAction()
+	void testDeleteById() throws Exception {
+		mockMvc.perform(
+					MockMvcRequestBuilders.get("/recipe/1/delete")
+				).
+				andExpect(status().is3xxRedirection()).
+				andExpect(view().name("redirect:/"));
+		
+		verify(recipeService, times(1)).deleteById(anyLong());
 	}
 	
 }

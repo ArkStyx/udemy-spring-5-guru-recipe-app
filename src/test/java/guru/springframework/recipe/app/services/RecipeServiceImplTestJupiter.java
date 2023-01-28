@@ -2,6 +2,7 @@ package guru.springframework.recipe.app.services;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import guru.springframework.recipe.app.commands.RecipeCommand;
 import guru.springframework.recipe.app.converters.fromcommand.RecipeCommandToRecipe;
 import guru.springframework.recipe.app.converters.fromdomain.RecipeToRecipeCommand;
 import guru.springframework.recipe.app.domain.Recipe;
@@ -42,6 +44,8 @@ class RecipeServiceImplTestJupiter {
 		recipeServiceImpl = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 	}
 	
+	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : getRecipeByIdTest()
 	@Test
 	void testGetRecipes() {
 		Recipe recetteGuacamole = new Recipe();
@@ -50,7 +54,7 @@ class RecipeServiceImplTestJupiter {
 		Recipe recetteTacos = new Recipe();
 		recetteTacos.setDescription("Tacos maison");
 
-		Set<Recipe> fausseListeDeRecettes = new LinkedHashSet<Recipe>();
+		Set<Recipe> fausseListeDeRecettes = new LinkedHashSet<>();
 		fausseListeDeRecettes.add(recetteGuacamole);
 		fausseListeDeRecettes.add(recetteTacos);
 
@@ -61,6 +65,7 @@ class RecipeServiceImplTestJupiter {
 		verify(recipeRepository, Mockito.times(1)).findAll();
 	}
 
+	// TODO correspondance nom methode JAVA GURU - John Thompson : getRecipeCoomandByIdTest()
 	@Test
 	void testGetRecipeById() {
 		Recipe recette = new Recipe();
@@ -69,8 +74,50 @@ class RecipeServiceImplTestJupiter {
 		Optional<Recipe> optionalRecette = Optional.of(recette);
 		when(recipeRepository.findById(anyLong())).thenReturn(optionalRecette);
 		
-		assertNotNull("Null Recipe Returned", recipeServiceImpl.getRecipeById(1L));
+		RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand commandById = recipeServiceImpl.getRecipeCommandById(1L);
+		
+		assertNotNull("Null Recipe Returned", commandById);
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
 	}
+	
+    @Test
+    public void getRecipesTest() throws Exception {
+
+        Recipe recipe = new Recipe();
+        Set<Recipe> fausseListeDeRecettes = new LinkedHashSet<>();
+        fausseListeDeRecettes.add(recipe);
+
+        when(recipeRepository.findAll()).thenReturn(fausseListeDeRecettes);
+
+        Set<Recipe> recipes = recipeServiceImpl.getRecipes();
+
+        assertEquals(recipes.size(), 1);
+        verify(recipeRepository, times(1)).findAll();
+        verify(recipeRepository, never()).findById(anyLong());
+    }
+    
+    
+    
+    @Test
+    public void testDeleteById() throws Exception {
+
+        /* Given */
+        Long idToDelete = 2L;
+
+        /* When */
+        recipeServiceImpl.deleteById(idToDelete);
+
+        // TODO no 'when(...)', since method has void return type
+
+        /* Then */
+        verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+    
+    
 }
