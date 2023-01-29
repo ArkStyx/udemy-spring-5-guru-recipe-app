@@ -54,7 +54,7 @@ public class RecipeController {
 	}
 	
     @GetMapping
-    @RequestMapping("recipe/{id}/delete")
+    @RequestMapping("recipe/{idPourSuppression}/delete")
 	public String deleteById(@PathVariable("idPourSuppression") Long id) {
 		log.info("Id de la recette supprimée : " + id);
 		recipeService.deleteById(id);

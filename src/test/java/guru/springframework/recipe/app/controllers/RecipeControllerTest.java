@@ -41,7 +41,7 @@ class RecipeControllerTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
 	}
 
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testGetRecipe
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testGetRecipe()
 	@Test
 	void testGetRecipeById() throws Exception {
 		
