@@ -21,9 +21,12 @@ public class RecipeController {
 	private final RecipeService recipeService;
 	
 	private static final String NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF = "recette";
+	
 	private static final String NOM_REPERTOIRE_THYMELEAF = "recettes";
 	private static final String SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF = "/";
+	
 	private static final String NOM_ACTION_FORM_THYMELEAF_DANS_TEMPLATE = "formulaireRecette";
+	
 	private static final String REDIRECTION = "redirect:/";
 	
     @GetMapping

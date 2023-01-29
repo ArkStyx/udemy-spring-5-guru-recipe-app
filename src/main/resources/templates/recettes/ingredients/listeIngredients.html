@@ -25,9 +25,57 @@
 	<div class="container-fluid" style="margin-top: 20px">
 	    <div class="row">
 	        <div class="col-md-6 col-md-offset-3">
-	            
-	            <!-- TODO FORM -->
-	            
+				<div class="panel panel-primary">
+
+					<div class="panel-heading">
+						<h1 class="panel-title">Ingredients</h1>
+					</div>
+					<div class="panel-body">
+					
+						<div class="table-responsive" th:if="${not #lists.isEmpty(recette.ingredients)}">
+							<table class="table table-hover ">
+	                            <thead class="thead-inverse">
+		                            <tr>
+		                                <th>ID</th>
+		                                <th>Description</th>
+		                                <th>View</th>
+		                                <th>Update</th>
+		                                <th>Delete</th>
+		                            </tr>
+	                            </thead>
+	                            <tr th:remove="all">
+	                                <td>111</td>
+	                                <td>Recette 1</td>
+	                                <td><a href="#">Voir</a></td>
+	                                <td><a href="#">Mettre à jour</a></td>
+	                                <td><a href="#">Supprimer</a></td>
+	                            </tr>
+	                            <tr th:remove="all">
+	                                <td>222</td>
+	                                <td>Recette 2</td>
+	                                <td><a href="#">Voir</a></td>
+	                                <td><a href="#">Mettre à jour</a></td>
+	                                <td><a href="#">Supprimer</a></td>
+	                            </tr>
+	                            <tr th:each="ingredient : ${recette.ingredients}">
+	                                <td th:text="${ingredient.id}">111</td>
+	                                <td th:text="${ingredient.amount} + ' ' + ${ingredient?.unitOfMeasure?.description} + ' ' 
+	                                			+ ${ingredient.description} + '/show'">Recette 3</td>
+	                                <td>
+										<a href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/' + ${ingredient.id} + '/show'}">Voir</a>
+									</td>
+	                                <td>
+										<a href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Mettre à jour</a>
+									</td>
+	                                <td>
+										<a href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Supprimer</a>
+									</td>
+	                            </tr>
+                            </table>
+						</div>
+						
+					</div>
+				</div>
 	        </div>
 	    </div>
 	</div>

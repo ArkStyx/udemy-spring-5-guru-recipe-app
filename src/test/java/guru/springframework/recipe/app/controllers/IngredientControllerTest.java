@@ -59,7 +59,7 @@ public class IngredientControllerTest {
 					MockMvcRequestBuilders.get("/recipe/1/ingredients")
 				).
 				andExpect(status().isOk()).
-				andExpect(view().name("recipe/ingredient/list")).
+				andExpect(view().name("recettes/ingredients/listeIngredients")).
 				andExpect(model().attributeExists("recette"));
 		/*
 		XXX THEN 

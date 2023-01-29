@@ -22,6 +22,6 @@ public class IngredientController {
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
 		log.debug("Id de la recette pour les ingredients recherches : " + id);
 		model.addAttribute("recette", recipeService.getRecipeCommandById(id));
-		return "recipe/ingredient/list";
+		return "recettes/ingredients/listeIngredients";
 	}
 }
