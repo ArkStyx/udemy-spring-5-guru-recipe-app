@@ -23,7 +23,8 @@ public class IngredientServiceImpl implements IngredientService {
 	public IngredientCommand recupererParIdRecetteEtIdIngredient(Long idRecette, Long idIngredient) {
 		
 		Optional<Recipe> optionalRecipe = recipeRepository.findById(idRecette);
-		if (!optionalRecipe.isPresent()){
+		if (!optionalRecipe.isPresent()) {
+			// TODO IMPLEMENTER ERREUR
 			log.error("Aucune recette trouvee pour cet idRecette : " + idRecette);
 		}
 		
@@ -34,7 +35,8 @@ public class IngredientServiceImpl implements IngredientService {
 				.map(ingredient -> ingredientToIngredientCommand.convert(ingredient))
 				.findFirst();
 		
-		if (!optionalIngredientCommand.isPresent()){
+		if (!optionalIngredientCommand.isPresent()) {
+			// TODO IMPLEMENTER ERREUR
 			log.error("Aucune ingredient trouve pour cet idIngredient : " + idIngredient);
 		}
 
