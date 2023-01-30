@@ -10,6 +10,7 @@ import lombok.Setter;
 public class NotesCommand {
 
 	private Long id;
-	private RecipeCommand recipe;
+	// TODO A SUPPRIMER ????
+//	private RecipeCommand recipe;
 	private String recipeNotes;
 }
