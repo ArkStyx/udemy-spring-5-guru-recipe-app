@@ -17,11 +17,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import guru.springframework.recipe.app.commands.IngredientCommand;
 import guru.springframework.recipe.app.commands.RecipeCommand;
+import guru.springframework.recipe.app.services.IngredientService;
 import guru.springframework.recipe.app.services.RecipeService;
 
 public class IngredientControllerTest {
 
+	@Mock
+	IngredientService ingredientService;
+	
 	@Mock
 	RecipeService recipeService;
 	
@@ -40,34 +45,42 @@ public class IngredientControllerTest {
 	@Test
 	void testRecupererListeIngredients() throws Exception {
 
-		/* 
-		XXX GIVEN
-		Explication:	Décrit le contexte initial, une scène qui s'est reproduite dans le passé
-		====>	L'initialisation des objets nécessaires au test, mais aussi le mockage d'une méthode et de ce qu'elle doit retourner lors d'un appel : when(...)
-		*/
+		/* Given */
 		Long idRecette = 1L;
 		RecipeCommand recipeCommand = new RecipeCommand();
 		recipeCommand.setId(idRecette);
 		when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
 		
-		/*
-		XXX WHEN
-		Explication:	Décrit un événement ou une action
-		====>	Le vrai test de la méthode : statut HTTP, url testée et objet récupéré
-		*/
+		/* When */
 		mockMvc.perform(
 					MockMvcRequestBuilders.get("/recipe/1/ingredients")
 				).
 				andExpect(status().isOk()).
 				andExpect(view().name("recettes/ingredients/listeIngredients")).
 				andExpect(model().attributeExists("recette"));
-		/*
-		XXX THEN 
-		Explication:	Décrit un résultat attendu
-		====>	Vérifier que la ou les méthodess appelés ont bien été appelée N fois
-		*/
+		
+		/* Then */
 		verify(recipeService, times(1)).getRecipeCommandById(anyLong());
 
+	}
+	
+	@Test
+	void testRecupererParIdRecetteEtIdIngredient() throws Exception {
+		/* Given */
+		Long idIngredient = 1L;
+		IngredientCommand ingredientCommand = new IngredientCommand();
+		ingredientCommand.setId(idIngredient);
+		
+		/* When */
+		when(ingredientService.recupererParIdRecetteEtIdIngredient(anyLong(), anyLong())).thenReturn(ingredientCommand);
+		
+		/* Then */
+		mockMvc.perform(
+					MockMvcRequestBuilders.get("/recipe/1/ingredients/2/show")
+				).
+				andExpect(status().isOk()).
+				andExpect(view().name("recettes/ingredients/montrerIngredient")).
+				andExpect(model().attributeExists("ingredient"));
 	}
 	
 }
