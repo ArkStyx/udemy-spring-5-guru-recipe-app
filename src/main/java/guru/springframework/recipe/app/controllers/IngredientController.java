@@ -3,9 +3,11 @@ package guru.springframework.recipe.app.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import guru.springframework.recipe.app.commands.IngredientCommand;
 import guru.springframework.recipe.app.services.IngredientService;
 import guru.springframework.recipe.app.services.RecipeService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ public class IngredientController {
 	private final RecipeService recipeService;
 	private final IngredientService ingredientService;
 	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : listIngredients()
 	@GetMapping
 	@RequestMapping(value = "/recipe/{idRecetteDansUrl}/ingredients")
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
@@ -27,6 +30,7 @@ public class IngredientController {
 		return "recettes/ingredients/listeIngredients";
 	}
 	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : showRecipeIngredient()
 	@GetMapping
 	@RequestMapping(value = "/recipe/{idRecette}/ingredients/{idIngredient}/show")
 	public String afficherIngredientDansRecette(Model model, @PathVariable Long idRecette, @PathVariable Long idIngredient) {
@@ -35,20 +39,22 @@ public class IngredientController {
 	}
 
 	
-	
-	
+
+	// TODO correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
 	public String modifierIngredientDansRecette() {
 		
 		// TODO CODE
 		
 		return "recettes/ingredients/formulaireIngredient";
 	}
-	public String sauvegarderOuModifierIngredientDansRecette() {
-		
-		// TODO CODE
-		
 
-		return "redirect:/recettes/" + idRecette + "/ingredients/" + recetteIngredient + "/montrerIngredient";
+	// TODO correspondance nom methode JAVA GURU - John Thompson : saveOrUpdate()
+	public String sauvegarderOuModifierIngredientDansRecette(@ModelAttribute IngredientCommand ingredientCommand) {
+		IngredientCommand ingredientSauvegarde = ingredientService.sauvegarderIngredient(ingredientCommand);
+		Long idRecette = ingredientSauvegarde.getRecipeId();
+		Long idIngredient = ingredientSauvegarde.getId();
+		
+		return "redirect:/recettes/" + idRecette + "/ingredients/" + idIngredient + "/montrerIngredient";
 	}
 	
 	

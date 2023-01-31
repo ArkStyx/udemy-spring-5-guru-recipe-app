@@ -3,6 +3,7 @@ package guru.springframework.recipe.app.services;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import guru.springframework.recipe.app.commands.IngredientCommand;
 import guru.springframework.recipe.app.converters.fromdomain.IngredientToIngredientCommand;
@@ -41,6 +42,18 @@ public class IngredientServiceImpl implements IngredientService {
 		}
 
 		return optionalIngredientCommand.get();
+	}
+	
+	
+	
+	@Transactional
+	@Override
+	public IngredientCommand sauvegarderIngredient(IngredientCommand ingredientCommand) {
+		
+		// TODO CODE
+		
+		
+		return null;
 	}
 
 }
