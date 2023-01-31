@@ -34,4 +34,38 @@ public class IngredientController {
 		return "recettes/ingredients/montrerIngredient";
 	}
 
+	
+	
+	
+	public String modifierIngredientDansRecette() {
+		
+		// TODO CODE
+		
+		return "recettes/ingredients/formulaireIngredient";
+	}
+	public String sauvegarderOuModifierIngredientDansRecette() {
+		
+		// TODO CODE
+		
+
+		return "redirect:/recettes/" + idRecette + "/ingredients/" + recetteIngredient + "/montrerIngredient";
+	}
+	
+	
+	/*
+	TODO templates/recipe/ingredient/ingredientform.html			====>	FIXME TODO recettes/ingredients/formulaireIngredient
+	TODO templates/recipe/ingredient/show.html						====>	FIXME TODO recettes/ingredients/montrerIngredient.html
+	TODO UnitOfMeasureService
+	TODO UnitOfMeasureServiceImpl
+	TODO MODIFIER IngredientController
+	TODO MODIFIER IngredientServiceImpl
+	
+	TODO UnitOfMeasureServiceImplTest
+	TODO MODIFIER IngredientServiceImplTest
+	TODO MODIFIER IngredientControllerTest
+	
+	*/
+	
+	
+	
 }
