@@ -5,11 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import guru.springframework.recipe.app.commands.IngredientCommand;
 import guru.springframework.recipe.app.services.IngredientService;
 import guru.springframework.recipe.app.services.RecipeService;
+import guru.springframework.recipe.app.services.UnitOfMeasureService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +22,7 @@ public class IngredientController {
 
 	private final RecipeService recipeService;
 	private final IngredientService ingredientService;
+	private final UnitOfMeasureService unitOfMeasureService;
 	
 	// TODO correspondance nom methode JAVA GURU - John Thompson : listIngredients()
 	@GetMapping
@@ -41,14 +44,15 @@ public class IngredientController {
 	
 
 	// TODO correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
-	public String modifierIngredientDansRecette() {
-		
-		// TODO CODE
-		
+    @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
+	public String modifierIngredientDansRecette(Model model, @PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
+    	model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
+    	model.addAttribute("listeUnitesDeMesure", unitOfMeasureService.recupererToutesLesUnitesDeMesure());
 		return "recettes/ingredients/formulaireIngredient";
 	}
 
 	// TODO correspondance nom methode JAVA GURU - John Thompson : saveOrUpdate()
+	@PostMapping("recipe/{recipeId}/ingredient")
 	public String sauvegarderOuModifierIngredientDansRecette(@ModelAttribute IngredientCommand ingredientCommand) {
 		IngredientCommand ingredientSauvegarde = ingredientService.sauvegarderIngredient(ingredientCommand);
 		Long idRecette = ingredientSauvegarde.getRecipeId();
@@ -59,12 +63,12 @@ public class IngredientController {
 	
 	
 	/*
-	TODO templates/recipe/ingredient/ingredientform.html			====>	FIXME TODO recettes/ingredients/formulaireIngredient
-	TODO templates/recipe/ingredient/show.html						====>	FIXME TODO recettes/ingredients/montrerIngredient.html
+	TODO templates/recipe/ingredient/ingredientform.html					====>	FIXME TODO recettes/ingredients/formulaireIngredient
+	TODO templates/recipe/ingredient/show.html								====>	FIXME TODO recettes/ingredients/montrerIngredient.html
 	TODO UnitOfMeasureService
 	TODO UnitOfMeasureServiceImpl
 	TODO MODIFIER IngredientController
-	TODO MODIFIER IngredientServiceImpl
+	TODO MODIFIER IngredientServiceImpl							====>	OK
 	
 	TODO UnitOfMeasureServiceImplTest
 	TODO MODIFIER IngredientServiceImplTest
