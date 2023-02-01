@@ -65,14 +65,14 @@ public class IngredientController {
 	/*
 	TODO templates/recipe/ingredient/ingredientform.html					====>	FIXME TODO recettes/ingredients/formulaireIngredient
 	TODO templates/recipe/ingredient/show.html								====>	FIXME TODO recettes/ingredients/montrerIngredient.html
-	TODO UnitOfMeasureService
-	TODO UnitOfMeasureServiceImpl
-	TODO MODIFIER IngredientController
+	TODO UnitOfMeasureService									====>	OK
+	TODO UnitOfMeasureServiceImpl								====>	OK
+	TODO MODIFIER IngredientController							====>	OK
 	TODO MODIFIER IngredientServiceImpl							====>	OK
 	
-	TODO UnitOfMeasureServiceImplTest
-	TODO MODIFIER IngredientServiceImplTest
-	TODO MODIFIER IngredientControllerTest
+	TODO UnitOfMeasureServiceImplTest										====>	FIXME TODO 
+	TODO MODIFIER IngredientServiceImplTest									====>	FIXME TODO 
+	TODO MODIFIER IngredientControllerTest									====>	FIXME TODO 
 	
 	*/
 	
