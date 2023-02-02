@@ -28,7 +28,7 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 																		.map(unitOfMeasureToUnitOfMeasureCommand::convert)
 																		.collect(Collectors.toSet());
 		log.info("toutesLesUnitesDeMesure.size() : " + toutesLesUnitesDeMesure.size());
-		
+
 		return toutesLesUnitesDeMesure;
 	}
 

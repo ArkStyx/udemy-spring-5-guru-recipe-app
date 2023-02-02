@@ -54,14 +54,10 @@ public class IngredientServiceImpl implements IngredientService {
 	@Override
 	public IngredientCommand sauvegarderIngredient(IngredientCommand ingredientCommand) {
 
-		Optional<Recipe> optionalRecipe = recipeRepository.findById(ingredientCommand.getRecipeId());
+		Long idRecette = ingredientCommand.getRecipeId();
+		Optional<Recipe> optionalRecipe = recipeRepository.findById(idRecette);
 		
 		if (optionalRecipe.isPresent()) {
-			// TODO IMPLEMENTER ERREUR
-			log.error("Aucune recette trouvee pour cet idRecette : " + idRecette);
-            return new IngredientCommand();
-		}
-		else {
 			Recipe recetteTrouvee = optionalRecipe.get();
 
 			Optional<Ingredient> optionalIngredient = 
@@ -89,6 +85,11 @@ public class IngredientServiceImpl implements IngredientService {
 			Ingredient ingredientSauvegarde = optionalIngredientSauvegarde.get();
 
 			return ingredientToIngredientCommand.convert(ingredientSauvegarde);
+		}
+		else {
+			// TODO IMPLEMENTER ERREUR
+			log.error("Aucune recette trouvee pour cet idRecette : " + idRecette);
+            return new IngredientCommand();
 		}
 	}
 

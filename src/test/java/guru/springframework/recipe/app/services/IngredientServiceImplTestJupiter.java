@@ -15,27 +15,35 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import guru.springframework.recipe.app.commands.IngredientCommand;
+import guru.springframework.recipe.app.converters.fromcommand.IngredientCommandToIngredient;
+import guru.springframework.recipe.app.converters.fromcommand.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.recipe.app.converters.fromdomain.IngredientToIngredientCommand;
 import guru.springframework.recipe.app.converters.fromdomain.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.recipe.app.domain.Ingredient;
 import guru.springframework.recipe.app.domain.Recipe;
 import guru.springframework.recipe.app.repositories.RecipeRepository;
+import guru.springframework.recipe.app.repositories.UnitOfMeasureRepository;
 
 
 public class IngredientServiceImplTestJupiter {
 
 	IngredientService ingredientService;
 	
-	IngredientToIngredientCommand ingredientToIngredientCommand;
-	
 	@Mock
 	RecipeRepository recipeRepository;
+	
+	@Mock
+	UnitOfMeasureRepository unitOfMeasureRepository;
+	
+	IngredientToIngredientCommand ingredientToIngredientCommand;
+	
+	IngredientCommandToIngredient ingredientCommandToIngredient;
 	
 	@BeforeEach
 	protected void setUp() throws Exception {
 		this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
 		MockitoAnnotations.openMocks(this);
-		ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToIngredientCommand);
+		ingredientService = new IngredientServiceImpl(recipeRepository, unitOfMeasureRepository, ingredientToIngredientCommand, ingredientCommandToIngredient);
 	}
 
 	@Test
@@ -45,20 +53,20 @@ public class IngredientServiceImplTestJupiter {
 		Long idRecette = 1L;
 		Long idIngredient = 3L;
 		
-        Ingredient ingredient1 = new Ingredient();
-        ingredient1.setId(1L);
+        Ingredient ingredient01 = new Ingredient();
+        ingredient01.setId(1L);
 
-        Ingredient ingredient2 = new Ingredient();
-        ingredient2.setId(1L);
+        Ingredient ingredient02 = new Ingredient();
+        ingredient02.setId(2L);
 
-        Ingredient ingredient3 = new Ingredient();
-        ingredient3.setId(3L);
+        Ingredient ingredient03 = new Ingredient();
+        ingredient03.setId(3L);
         
 		Recipe recette = new Recipe();
 		recette.setId(idRecette);
-        recette.addIngredient(ingredient1);
-        recette.addIngredient(ingredient2);
-        recette.addIngredient(ingredient3);
+        recette.addIngredient(ingredient01);
+        recette.addIngredient(ingredient02);
+        recette.addIngredient(ingredient03);
 
 		Optional<Recipe> optionalRecipe = Optional.of(recette);
 		when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
@@ -72,5 +80,16 @@ public class IngredientServiceImplTestJupiter {
 		assertEquals(idRecette, ingredientCommand.getRecipeId());
         verify(recipeRepository, times(1)).findById(anyLong());
 	}
+	
+	
+	
+	
+	// TODO A METTRE DANS LE CODE
+//	@Mock
+//	UnitOfMeasureRepository unitOfMeasureRepository;
+//	
+//	@Mock
+//	IngredientCommandToIngredient ingredientCommandToIngredient;
+	
 	
 }

@@ -41,8 +41,6 @@ public class IngredientController {
 		return "recettes/ingredients/montrerIngredient";
 	}
 
-	
-
 	// TODO correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
     @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
 	public String modifierIngredientDansRecette(Model model, @PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
@@ -70,8 +68,8 @@ public class IngredientController {
 	TODO MODIFIER IngredientController							====>	OK
 	TODO MODIFIER IngredientServiceImpl							====>	OK
 	
-	TODO UnitOfMeasureServiceImplTest										====>	FIXME TODO 
-	TODO MODIFIER IngredientServiceImplTest									====>	FIXME TODO 
+	TODO UnitOfMeasureServiceImplTest							====>	OK
+	TODO MODIFIER IngredientServiceImplTest									====>	FIXME EN COURS 
 	TODO MODIFIER IngredientControllerTest									====>	FIXME TODO 
 	
 	*/

@@ -1,5 +1,6 @@
 package guru.springframework.recipe.app.controllers;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -8,11 +9,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.LinkedHashSet;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -21,11 +25,15 @@ import guru.springframework.recipe.app.commands.IngredientCommand;
 import guru.springframework.recipe.app.commands.RecipeCommand;
 import guru.springframework.recipe.app.services.IngredientService;
 import guru.springframework.recipe.app.services.RecipeService;
+import guru.springframework.recipe.app.services.UnitOfMeasureService;
 
 public class IngredientControllerTest {
 
 	@Mock
 	IngredientService ingredientService;
+	
+	@Mock
+	UnitOfMeasureService unitOfMeasureService;
 	
 	@Mock
 	RecipeService recipeService;
@@ -65,14 +73,15 @@ public class IngredientControllerTest {
 	}
 	
 	@Test
-	void testRecupererParIdRecetteEtIdIngredient() throws Exception {
+	void testAfficherIngredientDansRecette() throws Exception {
 		/* Given */
 		Long idIngredient = 1L;
 		IngredientCommand ingredientCommand = new IngredientCommand();
 		ingredientCommand.setId(idIngredient);
 		
-		/* When */
 		when(ingredientService.recupererParIdRecetteEtIdIngredient(anyLong(), anyLong())).thenReturn(ingredientCommand);
+		
+		/* When */
 		
 		/* Then */
 		mockMvc.perform(
@@ -82,5 +91,57 @@ public class IngredientControllerTest {
 				andExpect(view().name("recettes/ingredients/montrerIngredient")).
 				andExpect(model().attributeExists("ingredient"));
 	}
+	
+	@Test
+	void testModifierIngredientDansRecette() throws Exception {
+		
+		/* Given */
+		Long idIngredient = 1L;
+		IngredientCommand ingredientCommand = new IngredientCommand();
+		ingredientCommand.setId(idIngredient);
+		
+        when(ingredientService.recupererParIdRecetteEtIdIngredient(anyLong(), anyLong())).thenReturn(ingredientCommand);
+        when(unitOfMeasureService.recupererToutesLesUnitesDeMesure()).thenReturn(new LinkedHashSet<>());
+        
+		/* When */
+
+		/* Then */
+        mockMvc.perform(
+        		MockMvcRequestBuilders.get("/recipe/1/ingredient/2/update")
+    		).
+    		andExpect(status().isOk()).
+    		andExpect(view().name("recettes/ingredients/formulaireIngredient")).
+    		andExpect(model().attributeExists("ingredient")).
+    		andExpect(model().attributeExists("listeUnitesDeMesure"));
+	}
+	
+	// TODO testSauvegarderOuModifierIngredientDansRecette
+	@Test
+	void testSauvegarderOuModifierIngredientDansRecette() throws Exception {
+
+		/* Given */
+		Long idIngredient = 1L;
+		IngredientCommand ingredientCommand = new IngredientCommand();
+		ingredientCommand.setId(idIngredient);
+		
+		when(ingredientService.sauvegarderIngredient(any())).thenReturn(ingredientCommand);
+		
+		/* When */
+
+		/* Then */
+		mockMvc.perform(
+					MockMvcRequestBuilders.post("/recipe/1/ingredient").
+					contentType(MediaType.APPLICATION_FORM_URLENCODED).
+	                param("id", "").
+	                param("description", "some string")
+				).
+				andExpect(status().is3xxRedirection()).
+				
+				// TODO FIXME idRecette ====> NPE
+				andExpect(view().name("redirect:/recettes/2/ingredients/1/montrerIngredient"));
+	}
+	
+	
+	
 	
 }
