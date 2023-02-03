@@ -35,7 +35,7 @@ public class IngredientController {
 	
 	// TODO correspondance nom methode JAVA GURU - John Thompson : showRecipeIngredient()
 	@GetMapping
-	@RequestMapping(value = "/recipe/{idRecette}/ingredients/{idIngredient}/show")
+	@RequestMapping(value = "/recipe/{idRecette}/ingredient/{idIngredient}/show")
 	public String afficherIngredientDansRecette(Model model, @PathVariable Long idRecette, @PathVariable Long idIngredient) {
 		model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
 		return "recettes/ingredients/montrerIngredient";
@@ -56,24 +56,7 @@ public class IngredientController {
 		Long idRecette = ingredientSauvegarde.getRecipeId();
 		Long idIngredient = ingredientSauvegarde.getId();
 		
-		return "redirect:/recettes/" + idRecette + "/ingredients/" + idIngredient + "/montrerIngredient";
+		return "redirect:/recipe/" + idRecette + "/ingredient/" + idIngredient + "/show";
 	}
-	
-	
-	/*
-	TODO templates/recipe/ingredient/ingredientform.html					====>	FIXME TODO recettes/ingredients/formulaireIngredient
-	TODO templates/recipe/ingredient/show.html								====>	FIXME TODO recettes/ingredients/montrerIngredient.html
-	TODO UnitOfMeasureService									====>	OK
-	TODO UnitOfMeasureServiceImpl								====>	OK
-	TODO MODIFIER IngredientController							====>	OK
-	TODO MODIFIER IngredientServiceImpl							====>	OK
-	
-	TODO UnitOfMeasureServiceImplTest							====>	OK
-	TODO MODIFIER IngredientServiceImplTest									====>	FIXME EN COURS 
-	TODO MODIFIER IngredientControllerTest									====>	FIXME TODO 
-	
-	*/
-	
-	
-	
+
 }

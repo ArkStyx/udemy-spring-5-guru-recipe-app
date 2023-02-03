@@ -115,14 +115,13 @@ public class IngredientControllerTest {
     		andExpect(model().attributeExists("listeUnitesDeMesure"));
 	}
 	
-	// TODO testSauvegarderOuModifierIngredientDansRecette
 	@Test
 	void testSauvegarderOuModifierIngredientDansRecette() throws Exception {
 
 		/* Given */
-		Long idIngredient = 1L;
 		IngredientCommand ingredientCommand = new IngredientCommand();
-		ingredientCommand.setId(idIngredient);
+		ingredientCommand.setId(3L);
+		ingredientCommand.setRecipeId(2L);
 		
 		when(ingredientService.sauvegarderIngredient(any())).thenReturn(ingredientCommand);
 		
@@ -136,9 +135,7 @@ public class IngredientControllerTest {
 	                param("description", "some string")
 				).
 				andExpect(status().is3xxRedirection()).
-				
-				// TODO FIXME idRecette ====> NPE
-				andExpect(view().name("redirect:/recettes/2/ingredients/1/montrerIngredient"));
+				andExpect(view().name("redirect:/recipe/2/ingredients/3/show"));
 	}
 	
 	

@@ -60,8 +60,10 @@ public class IngredientServiceImpl implements IngredientService {
 		if (optionalRecipe.isPresent()) {
 			Recipe recetteTrouvee = optionalRecipe.get();
 
-			Optional<Ingredient> optionalIngredient = 
-					recetteTrouvee.getIngredients().stream().filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId())).findFirst();
+			Optional<Ingredient> optionalIngredient = recetteTrouvee.getIngredients()
+																	.stream()
+																	.filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
+																	.findFirst();
 			
 			if (optionalIngredient.isPresent()) {
 				Ingredient ingredientTrouve = optionalIngredient.get();
@@ -79,8 +81,10 @@ public class IngredientServiceImpl implements IngredientService {
 			
 			Recipe recetteSauvegardee = recipeRepository.save(recetteTrouvee);
 			
-			Optional<Ingredient> optionalIngredientSauvegarde = 
-					recetteSauvegardee.getIngredients().stream().filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId())).findFirst();
+			Optional<Ingredient> optionalIngredientSauvegarde = recetteSauvegardee.getIngredients()
+																				.stream()
+																				.filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
+																				.findFirst();
 			
 			Ingredient ingredientSauvegarde = optionalIngredientSauvegarde.get();
 
@@ -92,5 +96,5 @@ public class IngredientServiceImpl implements IngredientService {
             return new IngredientCommand();
 		}
 	}
-
+	
 }

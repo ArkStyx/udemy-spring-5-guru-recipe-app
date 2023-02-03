@@ -2,6 +2,7 @@ package guru.springframework.recipe.app.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -42,6 +43,7 @@ public class IngredientServiceImplTestJupiter {
 	@BeforeEach
 	protected void setUp() throws Exception {
 		this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+		this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
 		MockitoAnnotations.openMocks(this);
 		ingredientService = new IngredientServiceImpl(recipeRepository, unitOfMeasureRepository, ingredientToIngredientCommand, ingredientCommandToIngredient);
 	}
@@ -81,15 +83,40 @@ public class IngredientServiceImplTestJupiter {
         verify(recipeRepository, times(1)).findById(anyLong());
 	}
 	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testSaveRecipeCommand()
+    @Test
+    public void testsauvegarderIngredient() throws Exception {
+    	
+		/* Given */
+    	Long idRecette = 2L;
+    	Long idIngredient = 3L;
+    	
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setId(idIngredient);
+        ingredientCommand.setRecipeId(idRecette);
+
+        Recipe savedRecipe = new Recipe();
+        savedRecipe.setId(idRecette);
+        savedRecipe.addIngredient(new Ingredient());
+        savedRecipe.getIngredients().iterator().next().setId(idIngredient);
+
+        when(recipeRepository.save(any())).thenReturn(savedRecipe);
+    	
+        Optional<Recipe> recipeOptional = Optional.of(new Recipe());
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+		/* When */
+        IngredientCommand ingredientCommandSauvegardee = ingredientService.sauvegarderIngredient(ingredientCommand);
+
+		/* Then */
+        assertNotNull(ingredientCommandSauvegardee);
+        assertEquals(idIngredient, ingredientCommandSauvegardee.getId());
+        assertEquals(idRecette, ingredientCommandSauvegardee.getRecipeId());
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).save(any(Recipe.class));
+    }
 	
 	
-	
-	// TODO A METTRE DANS LE CODE
-//	@Mock
-//	UnitOfMeasureRepository unitOfMeasureRepository;
-//	
-//	@Mock
-//	IngredientCommandToIngredient ingredientCommandToIngredient;
 	
 	
 }
