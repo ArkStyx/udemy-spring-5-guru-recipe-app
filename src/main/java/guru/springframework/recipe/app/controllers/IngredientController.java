@@ -1,5 +1,7 @@
 package guru.springframework.recipe.app.controllers;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import guru.springframework.recipe.app.commands.IngredientCommand;
+import guru.springframework.recipe.app.commands.RecipeCommand;
+import guru.springframework.recipe.app.commands.UnitOfMeasureCommand;
 import guru.springframework.recipe.app.services.IngredientService;
 import guru.springframework.recipe.app.services.RecipeService;
 import guru.springframework.recipe.app.services.UnitOfMeasureService;
@@ -40,7 +44,7 @@ public class IngredientController {
 		model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
 		return "recettes/ingredients/montrerIngredient";
 	}
-
+	
 	// TODO correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
     @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
 	public String modifierIngredientDansRecette(Model model, @PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
@@ -58,5 +62,57 @@ public class IngredientController {
 		
 		return "redirect:/recipe/" + idRecette + "/ingredient/" + idIngredient + "/show";
 	}
+	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : newIngredient()
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String creerNouvelIngredient(Model model, @PathVariable("recipeId") Long idRecette) {
+    	
+    	IngredientCommand ingredientCommand = new IngredientCommand();
+    	ingredientCommand.setRecipeId(idRecette);
+    	ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+    	
+    	RecipeCommand recetteTrouvee = recipeService.getRecipeCommandById(idRecette);
+    	recetteTrouvee.getIngredients().add(ingredientCommand);
+    	
+    	Set<UnitOfMeasureCommand> linkedHashSetUnitOfMeasureCommand = unitOfMeasureService.recupererToutesLesUnitesDeMesure();
+
+        model.addAttribute("ingredient", ingredientCommand);
+        model.addAttribute("listeUnitesDeMesure", linkedHashSetUnitOfMeasureCommand);
+        
+        return "recettes/ingredients/formulaireIngredient";
+    }
+    
+    
+    
+    
+    
+	// TODO correspondance nom methode JAVA GURU - John Thompson : deleteIngredient()
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    public String supprimerIngredient(@PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
+    	
+    	
+        log.debug("Suppression ingredient dans recette - idRecette : " + idRecette + " / idIngredient : " + idIngredient);
+        
+        // TODO CODE
+//    	ingredientService.supprimerIngredientDansRecetteParId(idRecette, idIngredient);
+    	
+    	
+    	return "redirect:/recipe/" + idRecette + "/ingredients";
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }

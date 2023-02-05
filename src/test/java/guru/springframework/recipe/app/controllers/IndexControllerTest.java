@@ -54,7 +54,7 @@ class IndexControllerTest {
 	@Test
 	void testGetIndexPage() {
 		
-		// TODO GIVEN
+		/* Given */
 		Recipe recetteGuacamole = new Recipe();
 		recetteGuacamole.setDescription("Guacamole maison");
 		
@@ -68,11 +68,11 @@ class IndexControllerTest {
 		when(recipeService.getRecipes()).thenReturn(fausseListeDeRecettes);
 		
 
-		// TODO WHEN
+		/* When */
 		String retourModel = indexController.getIndexPage(model);
 		
 		
-		// TODO THEN
+		/* Then */
 		assertEquals("index", retourModel);
 		
 		/*

@@ -83,7 +83,7 @@ public class IngredientServiceImplTestJupiter {
         verify(recipeRepository, times(1)).findById(anyLong());
 	}
 	
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testSaveRecipeCommand()
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testSaveRecipeCommand()
     @Test
     public void testsauvegarderIngredient() throws Exception {
     	

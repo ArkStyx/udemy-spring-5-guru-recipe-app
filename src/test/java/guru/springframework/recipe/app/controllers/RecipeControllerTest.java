@@ -41,7 +41,7 @@ class RecipeControllerTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
 	}
 
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testGetRecipe()
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testGetRecipe()
 	@Test
 	void testGetRecipeById() throws Exception {
 		
@@ -64,7 +64,7 @@ class RecipeControllerTest {
 				.andExpect(resultMatcherModelAttributeExists);
 	}
 	
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testGetNewRecipeForm()
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testGetNewRecipeForm()
 	@Test
 	void testCreateRecipe() throws Exception {
 		
@@ -82,7 +82,7 @@ class RecipeControllerTest {
 		
 	}
 
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testPostNewRecipeForm()
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testPostNewRecipeForm()
 	@Test
 	void testSaveOrUpdate() throws Exception {
 		
@@ -105,7 +105,7 @@ class RecipeControllerTest {
 			andExpect(view().name("redirect:/recipe/2/show"));
 	}
 	
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testGetUpdateView()
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testGetUpdateView()
 	@Test
 	void testUpdateRecipe() throws Exception {
 		
@@ -126,7 +126,7 @@ class RecipeControllerTest {
 				andExpect(model().attributeExists("recette"));
 	}
 	
-	// TODO correspondance nom methode JAVA GURU - John Thompson : testDeleteAction()
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testDeleteAction()
 	void testDeleteById() throws Exception {
 		mockMvc.perform(
 					MockMvcRequestBuilders.get("/recipe/1/delete")

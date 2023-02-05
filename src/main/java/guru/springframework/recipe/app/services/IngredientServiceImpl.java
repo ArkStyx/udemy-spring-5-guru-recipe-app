@@ -76,7 +76,14 @@ public class IngredientServiceImpl implements IngredientService {
 						.orElseThrow(() -> new RuntimeException("Unite de mesure non trouvee")));
 			}
 			else {
-				recetteTrouvee.addIngredient(ingredientCommandToIngredient.convert(ingredientCommand));
+				
+				// TODO METHODE 01
+//				recetteTrouvee.addIngredient(ingredientCommandToIngredient.convert(ingredientCommand));
+				
+				// TODO METHODE 02 - QUEL DIFFERENCE AVEC LA METHODE 01 ?
+				Ingredient ingredient = ingredientCommandToIngredient.convert(ingredientCommand);
+				ingredient.setRecipe(recetteTrouvee);
+				recetteTrouvee.addIngredient(ingredient);
 			}
 			
 			Recipe recetteSauvegardee = recipeRepository.save(recetteTrouvee);
@@ -86,9 +93,17 @@ public class IngredientServiceImpl implements IngredientService {
 																				.filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
 																				.findFirst();
 			
-			Ingredient ingredientSauvegarde = optionalIngredientSauvegarde.get();
-
-			return ingredientToIngredientCommand.convert(ingredientSauvegarde);
+            //check by description
+            if(!optionalIngredientSauvegarde.isPresent()){
+                //not totally safe... But best guess
+            	optionalIngredientSauvegarde = recetteSauvegardee.getIngredients().stream()
+            		.filter(recipeIngredients -> recipeIngredients.getDescription().equals(ingredientCommand.getDescription()))
+            		.filter(recipeIngredients -> recipeIngredients.getAmount().equals(ingredientCommand.getAmount()))
+            		.filter(recipeIngredients -> recipeIngredients.getUnitOfMeasure().getId().equals(ingredientCommand.getUnitOfMeasure().getId()))
+            		.findFirst();
+            }
+			
+			return ingredientToIngredientCommand.convert(optionalIngredientSauvegarde.get());
 		}
 		else {
 			// TODO IMPLEMENTER ERREUR

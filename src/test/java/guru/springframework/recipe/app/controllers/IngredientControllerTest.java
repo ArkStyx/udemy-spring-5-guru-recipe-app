@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import guru.springframework.recipe.app.commands.IngredientCommand;
 import guru.springframework.recipe.app.commands.RecipeCommand;
+import guru.springframework.recipe.app.commands.UnitOfMeasureCommand;
 import guru.springframework.recipe.app.services.IngredientService;
 import guru.springframework.recipe.app.services.RecipeService;
 import guru.springframework.recipe.app.services.UnitOfMeasureService;
@@ -57,9 +59,12 @@ public class IngredientControllerTest {
 		Long idRecette = 1L;
 		RecipeCommand recipeCommand = new RecipeCommand();
 		recipeCommand.setId(idRecette);
+		
 		when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
 		
 		/* When */
+		
+		/* Then */
 		mockMvc.perform(
 					MockMvcRequestBuilders.get("/recipe/1/ingredients")
 				).
@@ -67,11 +72,11 @@ public class IngredientControllerTest {
 				andExpect(view().name("recettes/ingredients/listeIngredients")).
 				andExpect(model().attributeExists("recette"));
 		
-		/* Then */
 		verify(recipeService, times(1)).getRecipeCommandById(anyLong());
 
 	}
 	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testShowIngredient()
 	@Test
 	void testAfficherIngredientDansRecette() throws Exception {
 		/* Given */
@@ -85,13 +90,14 @@ public class IngredientControllerTest {
 		
 		/* Then */
 		mockMvc.perform(
-					MockMvcRequestBuilders.get("/recipe/1/ingredients/2/show")
+					MockMvcRequestBuilders.get("/recipe/1/ingredient/2/show")
 				).
 				andExpect(status().isOk()).
 				andExpect(view().name("recettes/ingredients/montrerIngredient")).
 				andExpect(model().attributeExists("ingredient"));
 	}
 	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testUpdateIngredientForm()
 	@Test
 	void testModifierIngredientDansRecette() throws Exception {
 		
@@ -115,6 +121,7 @@ public class IngredientControllerTest {
     		andExpect(model().attributeExists("listeUnitesDeMesure"));
 	}
 	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testSaveOrUpdate()
 	@Test
 	void testSauvegarderOuModifierIngredientDansRecette() throws Exception {
 
@@ -126,7 +133,7 @@ public class IngredientControllerTest {
 		when(ingredientService.sauvegarderIngredient(any())).thenReturn(ingredientCommand);
 		
 		/* When */
-
+		
 		/* Then */
 		mockMvc.perform(
 					MockMvcRequestBuilders.post("/recipe/1/ingredient").
@@ -135,8 +142,72 @@ public class IngredientControllerTest {
 	                param("description", "some string")
 				).
 				andExpect(status().is3xxRedirection()).
-				andExpect(view().name("redirect:/recipe/2/ingredients/3/show"));
+				andExpect(view().name("redirect:/recipe/2/ingredient/3/show"));
 	}
+	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testNewIngredientForm()
+	@Test
+	void testCreerNouvelIngredient() throws Exception {
+		
+		/* Given */
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+        
+        Set<UnitOfMeasureCommand> linkedHashSetUnitOfMeasureCommand = new LinkedHashSet<>();
+		
+        when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+        when(unitOfMeasureService.recupererToutesLesUnitesDeMesure()).thenReturn(linkedHashSetUnitOfMeasureCommand);
+        
+		/* When */
+		
+		
+		/* Then */
+		mockMvc.perform(
+					MockMvcRequestBuilders.get("/recipe/1/ingredient/new")
+				).
+				andExpect(status().isOk()).
+				andExpect(view().name("recettes/ingredients/formulaireIngredient")).
+				andExpect(model().attributeExists("ingredient")).
+				andExpect(model().attributeExists("listeUnitesDeMesure"));
+	}
+	
+	
+	
+	
+	
+	
+	
+	// TODO correspondance nom methode JAVA GURU - John Thompson : testDeleteIngredient()
+	@Test
+	void testSupprimerIngredient() throws Exception {
+		/* Given */
+		
+		
+		/* When */
+		
+		
+		/* Then */
+		mockMvc.perform(
+					MockMvcRequestBuilders.get("recipe/2/ingredient/3/delete")
+				).
+				andExpect(status().is3xxRedirection()).
+				andExpect(view().name("redirect:/recipe/2/ingredients"));
+	}
+	
+	
+	
+	/*
+    TODO POUR REALISER L'EXERCICE
+    
+    @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    return "redirect:/recipe/" + recipeId + "/ingredients";
+	
+	Implementer TDD : 
+	01) write your test case first
+	02) write the controller action
+	03) write the service.
+	 */
+	
 	
 	
 	
