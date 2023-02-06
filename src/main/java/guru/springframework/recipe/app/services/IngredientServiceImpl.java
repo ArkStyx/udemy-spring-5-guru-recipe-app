@@ -1,6 +1,7 @@
 package guru.springframework.recipe.app.services;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,5 +112,30 @@ public class IngredientServiceImpl implements IngredientService {
             return new IngredientCommand();
 		}
 	}
-	
+
+	@Override
+	public void supprimerIngredientDansRecetteParId(Long idRecette, Long idIngredient) {
+
+		Optional<Recipe> optionalRecipe = recipeRepository.findById(idRecette);
+		if (optionalRecipe.isPresent()) {
+			Recipe recette = optionalRecipe.get();
+			
+			Predicate<Ingredient> filtreIdIngredient = ingredient -> ingredient.getId().equals(idIngredient);
+			Optional<Ingredient> optionalIngredient = recette.getIngredients().stream()
+																			.filter(filtreIdIngredient)
+																			.findFirst();
+			if (optionalIngredient.isPresent()) {
+                Ingredient ingredientPourSuppression = optionalIngredient.get();
+                ingredientPourSuppression.setRecipe(null);
+                
+                recette.getIngredients().remove(ingredientPourSuppression);
+                recipeRepository.save(recette);
+			}
+			
+		}
+		else {
+			log.error("La recette recherchee n'existe pas - idRecette : " + idRecette);
+		}
+	}
+
 }

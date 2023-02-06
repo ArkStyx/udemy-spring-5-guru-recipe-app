@@ -170,13 +170,7 @@ public class IngredientControllerTest {
 				andExpect(model().attributeExists("ingredient")).
 				andExpect(model().attributeExists("listeUnitesDeMesure"));
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	// TODO correspondance nom methode JAVA GURU - John Thompson : testDeleteIngredient()
 	@Test
 	void testSupprimerIngredient() throws Exception {
@@ -188,28 +182,12 @@ public class IngredientControllerTest {
 		
 		/* Then */
 		mockMvc.perform(
-					MockMvcRequestBuilders.get("recipe/2/ingredient/3/delete")
+					MockMvcRequestBuilders.get("/recipe/2/ingredient/3/delete")
 				).
 				andExpect(status().is3xxRedirection()).
 				andExpect(view().name("redirect:/recipe/2/ingredients"));
+		
+		verify(ingredientService, times(1)).supprimerIngredientDansRecetteParId(anyLong(), anyLong());
 	}
-	
-	
-	
-	/*
-    TODO POUR REALISER L'EXERCICE
-    
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
-    return "redirect:/recipe/" + recipeId + "/ingredients";
-	
-	Implementer TDD : 
-	01) write your test case first
-	02) write the controller action
-	03) write the service.
-	 */
-	
-	
-	
-	
 	
 }

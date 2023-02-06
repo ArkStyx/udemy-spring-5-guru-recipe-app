@@ -82,37 +82,16 @@ public class IngredientController {
         
         return "recettes/ingredients/formulaireIngredient";
     }
-    
-    
-    
-    
-    
+
 	// TODO correspondance nom methode JAVA GURU - John Thompson : deleteIngredient()
     @GetMapping
     @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
     public String supprimerIngredient(@PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
-    	
-    	
-        log.debug("Suppression ingredient dans recette - idRecette : " + idRecette + " / idIngredient : " + idIngredient);
-        
-        // TODO CODE
-//    	ingredientService.supprimerIngredientDansRecetteParId(idRecette, idIngredient);
-    	
+
+        log.info("Suppression ingredient dans recette - idRecette : " + idRecette + " / idIngredient : " + idIngredient);
+    	ingredientService.supprimerIngredientDansRecetteParId(idRecette, idIngredient);
     	
     	return "redirect:/recipe/" + idRecette + "/ingredients";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+  
 }

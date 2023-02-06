@@ -7,4 +7,6 @@ public interface IngredientService {
 	IngredientCommand recupererParIdRecetteEtIdIngredient(Long idRecette, Long idIngredient);
 
 	IngredientCommand sauvegarderIngredient(IngredientCommand ingredientCommand);
+
+	void supprimerIngredientDansRecetteParId(Long idRecette, Long idIngredient);
 }
