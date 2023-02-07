@@ -108,10 +108,9 @@ class RecipeServiceImplTestJupiter {
     public void testDeleteById() throws Exception {
 
         /* Given */
-        Long idToDelete = 2L;
 
         /* When */
-        recipeServiceImpl.deleteById(idToDelete);
+        recipeServiceImpl.deleteById(anyLong());
 
         // TODO no 'when(...)', since method has void return type
 

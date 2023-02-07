@@ -27,6 +27,7 @@ public class IngredientServiceImpl implements IngredientService {
 	private final IngredientToIngredientCommand ingredientToIngredientCommand;
 	private final IngredientCommandToIngredient ingredientCommandToIngredient;
 	
+	// XXX correspondance nom methode JAVA GURU - John Thompson : findByRecipeIdAndIngredientId()
 	@Override
 	public IngredientCommand recupererParIdRecetteEtIdIngredient(Long idRecette, Long idIngredient) {
 		
@@ -51,6 +52,7 @@ public class IngredientServiceImpl implements IngredientService {
 		return optionalIngredientCommand.get();
 	}
 	
+	// XXX correspondance nom methode JAVA GURU - John Thompson : saveIngredientCommand()
 	@Transactional
 	@Override
 	public IngredientCommand sauvegarderIngredient(IngredientCommand ingredientCommand) {
@@ -113,6 +115,8 @@ public class IngredientServiceImpl implements IngredientService {
 		}
 	}
 
+	
+	// XXX correspondance nom methode JAVA GURU - John Thompson : deleteById()
 	@Override
 	public void supprimerIngredientDansRecetteParId(Long idRecette, Long idIngredient) {
 

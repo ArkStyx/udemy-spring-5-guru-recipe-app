@@ -85,7 +85,7 @@ public class IngredientServiceImplTestJupiter {
 	
 	// XXX correspondance nom methode JAVA GURU - John Thompson : testSaveRecipeCommand()
     @Test
-    public void testsauvegarderIngredient() throws Exception {
+    public void testSauvegarderIngredient() throws Exception {
     	
 		/* Given */
     	Long idRecette = 2L;
@@ -115,8 +115,32 @@ public class IngredientServiceImplTestJupiter {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
     }
-	
-	
-	
-	
+    
+	// XXX correspondance nom methode JAVA GURU - John Thompson : testDeleteById()
+	@Test
+    public void testSupprimerIngredientDansRecetteParId() throws Exception {
+    	
+		Long idRecette = 1L;
+		Long idIngredient = 3L;
+		
+		Recipe recette = new Recipe();
+		recette.setId(idRecette);
+		
+		Ingredient ingredient = new Ingredient();
+		ingredient.setId(idIngredient);
+		ingredient.setRecipe(recette);
+		
+		recette.addIngredient(ingredient);
+		Optional<Recipe> optionalRecipe = Optional.of(recette);
+		
+		when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
+		
+		/* When */
+		ingredientService.supprimerIngredientDansRecetteParId(idRecette, idIngredient);
+
+		/* Then */
+		verify(recipeRepository, times(1)).findById(anyLong());
+		verify(recipeRepository, times(1)).save(any(Recipe.class));
+    }
+    
 }
