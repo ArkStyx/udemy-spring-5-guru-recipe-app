@@ -29,8 +29,7 @@ public class IngredientController {
 	private final UnitOfMeasureService unitOfMeasureService;
 	
 	// XXX correspondance nom methode JAVA GURU - John Thompson : listIngredients()
-	@GetMapping
-	@RequestMapping(value = "/recipe/{idRecetteDansUrl}/ingredients")
+	@GetMapping(value = "/recipe/{idRecetteDansUrl}/ingredients")
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
 		log.debug("Id de la recette pour les ingredients recherches : " + id);
 		model.addAttribute("recette", recipeService.getRecipeCommandById(id));
@@ -38,8 +37,7 @@ public class IngredientController {
 	}
 	
 	// XXX correspondance nom methode JAVA GURU - John Thompson : showRecipeIngredient()
-	@GetMapping
-	@RequestMapping(value = "/recipe/{idRecette}/ingredient/{idIngredient}/show")
+	@GetMapping(value = "/recipe/{idRecette}/ingredient/{idIngredient}/show")
 	public String afficherIngredientDansRecette(Model model, @PathVariable Long idRecette, @PathVariable Long idIngredient) {
 		model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
 		return "recettes/ingredients/montrerIngredient";
@@ -64,8 +62,7 @@ public class IngredientController {
 	}
 	
 	// XXX correspondance nom methode JAVA GURU - John Thompson : newIngredient()
-    @GetMapping
-    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    @GetMapping("recipe/{recipeId}/ingredient/new")
     public String creerNouvelIngredient(Model model, @PathVariable("recipeId") Long idRecette) {
     	
     	IngredientCommand ingredientCommand = new IngredientCommand();
@@ -84,8 +81,7 @@ public class IngredientController {
     }
 
 	// XXX correspondance nom methode JAVA GURU - John Thompson : deleteIngredient()
-    @GetMapping
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    @GetMapping("recipe/{recipeId}/ingredient/{id}/delete")
     public String supprimerIngredient(@PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
 
         log.info("Suppression ingredient dans recette - idRecette : " + idRecette + " / idIngredient : " + idIngredient);

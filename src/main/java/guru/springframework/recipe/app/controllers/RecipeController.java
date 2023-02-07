@@ -29,22 +29,19 @@ public class RecipeController {
 	
 	private static final String REDIRECTION = "redirect:/";
 	
-    @GetMapping
-	@RequestMapping(value = "/recipe/{idRecupereDansUrl}/show")
+    @GetMapping(value = "/recipe/{idRecupereDansUrl}/show")
 	public String getRecipeById(Model model, @PathVariable("idRecupereDansUrl") Long id) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.getRecipeById(id));
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "voirRecetteParId";
 	}
 	
-    @GetMapping
-	@RequestMapping(value = "/recipe/new")
+    @GetMapping(value = "/recipe/new")
 	public String createRecipe(Model model) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, new RecipeCommand());
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "formulaireNouvelleRecette";
 	}
 	
-    @GetMapping
-	@RequestMapping(value ="/recipe/{idRecupereDansUrl}/update")
+    @GetMapping(value ="/recipe/{idRecupereDansUrl}/update")
 	public String updateRecipe(Model model, @PathVariable("idRecupereDansUrl") Long id) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.getRecipeCommandById(id));
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "formulaireNouvelleRecette";
@@ -55,9 +52,8 @@ public class RecipeController {
 		RecipeCommand recetteSauvegardee = recipeService.saveRecipeCommand(command);
 		return REDIRECTION + "recipe/" + recetteSauvegardee.getId() + "/show";
 	}
-	
-    @GetMapping
-    @RequestMapping("recipe/{idPourSuppression}/delete")
+
+    @GetMapping("recipe/{idPourSuppression}/delete")
 	public String deleteById(@PathVariable("idPourSuppression") Long id) {
 		log.info("Id de la recette supprimée : " + id);
 		recipeService.deleteById(id);
