@@ -81,7 +81,14 @@
 	                                </div>
 	                                <div class="col-md-3 form-group">
 	                                    <label>Difficulté : </label>
-	                                    <select class="form-control">
+	                                    <select class="form-control" th:field="*{difficulty}">
+	                                     	<option th:each="difficultyValue : ${T(guru.springframework.recipe.app.domain.enums.Difficulty).values}"
+	                                     			th:value="${difficultyValue.name}"
+	                                     			th:text="${difficultyValue.name}">
+	                                     		valeur 02
+	                                    	</option>
+	                                    </select>
+	                                    <select class="form-control" th:remove="all">
 	                                        <option>Facile</option>
 	                                        <option>Moyenne</option>
 	                                        <option>Difficile</option>
