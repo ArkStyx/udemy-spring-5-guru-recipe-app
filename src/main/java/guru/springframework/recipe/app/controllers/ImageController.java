@@ -22,21 +22,17 @@ public class ImageController {
 	private final RecipeService recipeService;
 	
 	@GetMapping(value = "recipe/{id}/image")
-	public String getImageForm(Model model, @PathVariable String id) {
-		model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
+	public String getImageForm(Model model, @PathVariable Long id) {
+		log.info("getImageForm - id recette recherchee : " + id);
+		model.addAttribute("recipe", recipeService.findCommandById(id));
 		return "recipe/imageuploadform";
 	}
 	
 	@PostMapping("recipe/{idRecette}/image")
-	public String handleImagePost(@PathVariable("idRecette") Long id, @RequestParam("file") MultipartFile file) {
-		log.debug("Id Recette : " + id);
+	public String handleImagePost(@PathVariable("idRecette") Long id, @RequestParam("imagefile") MultipartFile file) {
+		log.info("handleImagePost - id recette recherchee : " + id);
 		imageService.saveImageFile(id, file);
-		return "/recipe/" + id + "/show";
+		return "redirect:/recipe/" + id + "/show";
 	}
-	
-	
-	
-	// TODO CREER imageuploadform.html
-	// TODO MODIFIER show.html - AJOUTER BOUTON QUI POINTE VERS imageuploadform.html + AJOUTER LES IMAGES ISSUES DE resources/static/images
 	
 }

@@ -13,7 +13,7 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public void saveImageFile(Long recipeId, MultipartFile file) {
-		log.debug("Reception d'un fichier : " + file.getName());
+		log.info("Reception d'un fichier : " + file.getName());
 	}
 
 }

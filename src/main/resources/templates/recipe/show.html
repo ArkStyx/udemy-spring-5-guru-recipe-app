@@ -27,66 +27,83 @@
 	        <div class="col-md-6 col-md-offset-3">
 	            <div class="panel-group">
 					<div class="panel panel-primary">
-						<div class="panel-heading">
-	                        <h1 class="panel-title" th:text="${recette.description}">Description de la recette</h1>
-	                    </div>
-	                    <div class="panel-body">
-	                        <div class="row">
-	                            <div class="col-md-3">
-	                                <h5>Catégories :</h5>
-	                            </div>
-	                            <div class="col-md-9">
-	                                <ul>
-										<li th:remove="all">Mechoui Tex-Mex</li>
-                                    	<li th:remove="all">Kebab Rwandais</li>
-	                                    <li th:each="categorie : ${recette.categories}" th:text="${categorie.description}">Ravioli Argentins</li>
-	                                </ul>
-	                            </div>
-	                        </div>
-	                        <div class="row">
-	                            <div class="col-md-3">
-	                                <h5>Temps de préparation : </h5>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <p th:text="${(recette.prepTime + ' minutes')}">30 min</p>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <h5>Difficulté : </h5>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <p th:text="${recette.difficulty}">Facile</p>
-	                            </div>
-	                        </div>
-	                        <div class="row">
-	                            <div class="col-md-3">
-	                                <h5>Temps de cuisson : </h5>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <p th:text="${(recette.cookTime + ' minutes')}">30 min</p>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <h5>Nombre de personnes : </h5>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <p th:text="${recette.serving}" >4</p>
-	                            </div>
-	                        </div>
-	                        <div class="row">
-	                            <div class="col-md-3">
-	                                <h5>Source : </h5>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <p th:text="${recette.source}">recettes-faciles.fr</p>
-	                            </div>
-	                            <div class="col-md-3">
-	                                <h5>URL : </h5>
-	                            </div>
-		                        <div class="col-md-3">
-	                                <p><a href="#" th:href="@{recette.url}" >Voir lien original</a></p>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
+
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-3">
+		                    	<h1 class="panel-title" th:text="${recette.description}">Description de la recette</h1>
+		                    </div>
+							<div class="col-md-1">
+								<a class="btn btn-default" href="#"
+	                               th:href="@{'/recipe/' + ${recette.id} + '/image'}" role="button">Change Image</a>
+							</div>
+						</div>  
+					</div>
+	                    
+					<div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Catégories :</h5>
+                            </div>
+                            <div class="col-md-9">
+                                <ul>
+									<li th:remove="all">Mechoui Tex-Mex</li>
+                                   	<li th:remove="all">Kebab Rwandais</li>
+                                    <li th:each="categorie : ${recette.categories}" th:text="${categorie.description}">Ravioli Argentins</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <img src="../../static/images/guacamole400x400WithX.jpg"
+                                     th:src="@{/images/guacamole400x400WithX.jpg}"
+                                     width="200" height="200">
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Temps de préparation : </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${(recette.prepTime + ' minutes')}">30 min</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Difficulté : </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${recette.difficulty}">Facile</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Temps de cuisson : </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${(recette.cookTime + ' minutes')}">30 min</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Nombre de personnes : </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${recette.serving}" >4</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Source : </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${recette.source}">recettes-faciles.fr</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>URL : </h5>
+                            </div>
+	                        <div class="col-md-3">
+                                <p><a href="#" th:href="@{recette.url}" >Voir lien original</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 	 				<div class="panel panel-primary">
 	                    <div class="panel-heading">
 	                        <div class="row">
