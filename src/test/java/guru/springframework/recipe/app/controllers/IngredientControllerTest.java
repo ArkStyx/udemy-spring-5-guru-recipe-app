@@ -60,7 +60,7 @@ public class IngredientControllerTest {
 		RecipeCommand recipeCommand = new RecipeCommand();
 		recipeCommand.setId(idRecette);
 		
-		when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+		when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 		
 		/* When */
 		
@@ -72,7 +72,7 @@ public class IngredientControllerTest {
 				andExpect(view().name("recettes/ingredients/listeIngredients")).
 				andExpect(model().attributeExists("recette"));
 		
-		verify(recipeService, times(1)).getRecipeCommandById(anyLong());
+		verify(recipeService, times(1)).findCommandById(anyLong());
 
 	}
 	
@@ -155,7 +155,7 @@ public class IngredientControllerTest {
         
         Set<UnitOfMeasureCommand> linkedHashSetUnitOfMeasureCommand = new LinkedHashSet<>();
 		
-        when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
         when(unitOfMeasureService.recupererToutesLesUnitesDeMesure()).thenReturn(linkedHashSetUnitOfMeasureCommand);
         
 		/* When */

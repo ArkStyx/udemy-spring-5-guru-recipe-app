@@ -31,7 +31,7 @@ public class RecipeController {
 	
     @GetMapping(value = "/recipe/{idRecupereDansUrl}/show")
 	public String getRecipeById(Model model, @PathVariable("idRecupereDansUrl") Long id) {
-		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.getRecipeById(id));
+		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.findById(id));
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "voirRecetteParId";
 	}
 	
@@ -43,7 +43,7 @@ public class RecipeController {
 	
     @GetMapping(value ="/recipe/{idRecupereDansUrl}/update")
 	public String updateRecipe(Model model, @PathVariable("idRecupereDansUrl") Long id) {
-		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.getRecipeCommandById(id));
+		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.findCommandById(id));
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "formulaireNouvelleRecette";
 	}
 	

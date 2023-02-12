@@ -79,7 +79,7 @@ class RecipeServiceImplTestJupiter {
 
         when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
 
-        RecipeCommand commandById = recipeServiceImpl.getRecipeCommandById(1L);
+        RecipeCommand commandById = recipeServiceImpl.findCommandById(1L);
 		
 		assertNotNull("Null Recipe Returned", commandById);
 		verify(recipeRepository, times(1)).findById(anyLong());

@@ -50,7 +50,7 @@ class RecipeControllerTest {
 		Recipe recette = new Recipe();
 		recette.setId(idRecette);
 		
-		when(recipeService.getRecipeById(anyLong())).thenReturn(recette);
+		when(recipeService.findById(anyLong())).thenReturn(recette);
 
 		String rootContext = "/recipe/" + idRecette + "/show/";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(rootContext);
@@ -115,7 +115,7 @@ class RecipeControllerTest {
 		recipeCommand.setId(idRecette);
 		
 		/* When */
-		when(recipeService.getRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+		when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 		
 		/* Then */
 		mockMvc.perform(

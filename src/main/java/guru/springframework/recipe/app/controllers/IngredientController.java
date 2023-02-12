@@ -32,7 +32,7 @@ public class IngredientController {
 	@GetMapping(value = "/recipe/{idRecetteDansUrl}/ingredients")
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
 		log.debug("Id de la recette pour les ingredients recherches : " + id);
-		model.addAttribute("recette", recipeService.getRecipeCommandById(id));
+		model.addAttribute("recette", recipeService.findCommandById(id));
 		return "recettes/ingredients/listeIngredients";
 	}
 	
@@ -69,7 +69,7 @@ public class IngredientController {
     	ingredientCommand.setRecipeId(idRecette);
     	ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
     	
-    	RecipeCommand recetteTrouvee = recipeService.getRecipeCommandById(idRecette);
+    	RecipeCommand recetteTrouvee = recipeService.findCommandById(idRecette);
     	recetteTrouvee.getIngredients().add(ingredientCommand);
     	
     	Set<UnitOfMeasureCommand> linkedHashSetUnitOfMeasureCommand = unitOfMeasureService.recupererToutesLesUnitesDeMesure();

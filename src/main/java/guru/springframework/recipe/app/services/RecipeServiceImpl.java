@@ -31,7 +31,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public Recipe getRecipeById(Long id) {
+	public Recipe findById(Long id) {
 		return recipeRepository.findById(id).orElseThrow(() -> new RuntimeException("Aucune recette trouvée"));
 	}
 
@@ -47,8 +47,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public RecipeCommand getRecipeCommandById(Long id) {
-		return recipeToRecipeCommand.convert(getRecipeById(id));
+	public RecipeCommand findCommandById(Long id) {
+		return recipeToRecipeCommand.convert(findById(id));
 	}
 	
 	@Override
