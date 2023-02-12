@@ -55,7 +55,7 @@ class RecipeControllerTest {
 		String rootContext = "/recipe/" + idRecette + "/show/";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(rootContext);
 		ResultMatcher resultMatcherStatusOk = status().isOk();
-		ResultMatcher resultMatcherViewNameIndex = view().name("recettes/voirRecetteParId");
+		ResultMatcher resultMatcherViewNameIndex = view().name("recipe/show");
 		ResultMatcher resultMatcherModelAttributeExists = model().attributeExists("recette");
 		
 		mockMvc.perform(requestBuilder)
@@ -77,7 +77,7 @@ class RecipeControllerTest {
 					MockMvcRequestBuilders.get("/recipe/new")
 				).
 				andExpect(status().isOk()).
-				andExpect(view().name("recettes/formulaireNouvelleRecette")).
+				andExpect(view().name("recipe/recipeform")).
 				andExpect(model().attributeExists("recette"));
 		
 	}
@@ -122,7 +122,7 @@ class RecipeControllerTest {
 					MockMvcRequestBuilders.get("/recipe/1/update/")
 				).
 				andExpect(status().isOk()).
-				andExpect(view().name("recettes/formulaireNouvelleRecette")).
+				andExpect(view().name("recipe/recipeform")).
 				andExpect(model().attributeExists("recette"));
 	}
 	

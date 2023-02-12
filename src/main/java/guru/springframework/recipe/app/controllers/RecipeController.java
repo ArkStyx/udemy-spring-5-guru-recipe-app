@@ -22,7 +22,7 @@ public class RecipeController {
 	
 	private static final String NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF = "recette";
 	
-	private static final String NOM_REPERTOIRE_THYMELEAF = "recettes";
+	private static final String NOM_REPERTOIRE_THYMELEAF = "recipe";
 	private static final String SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF = "/";
 	
 	private static final String NOM_ACTION_FORM_THYMELEAF_DANS_TEMPLATE = "formulaireRecette";
@@ -32,19 +32,19 @@ public class RecipeController {
     @GetMapping(value = "/recipe/{idRecupereDansUrl}/show")
 	public String getRecipeById(Model model, @PathVariable("idRecupereDansUrl") Long id) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.findById(id));
-		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "voirRecetteParId";
+		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "show";
 	}
 	
     @GetMapping(value = "/recipe/new")
 	public String createRecipe(Model model) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, new RecipeCommand());
-		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "formulaireNouvelleRecette";
+		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "recipeform";
 	}
 	
     @GetMapping(value ="/recipe/{idRecupereDansUrl}/update")
 	public String updateRecipe(Model model, @PathVariable("idRecupereDansUrl") Long id) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.findCommandById(id));
-		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "formulaireNouvelleRecette";
+		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "recipeform";
 	}
 	
 	@PostMapping(value = NOM_ACTION_FORM_THYMELEAF_DANS_TEMPLATE)

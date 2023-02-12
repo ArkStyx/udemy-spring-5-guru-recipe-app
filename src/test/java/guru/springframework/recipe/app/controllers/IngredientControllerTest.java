@@ -69,7 +69,7 @@ public class IngredientControllerTest {
 					MockMvcRequestBuilders.get("/recipe/1/ingredients")
 				).
 				andExpect(status().isOk()).
-				andExpect(view().name("recettes/ingredients/listeIngredients")).
+				andExpect(view().name("recipe/ingredient/list")).
 				andExpect(model().attributeExists("recette"));
 		
 		verify(recipeService, times(1)).findCommandById(anyLong());
@@ -93,7 +93,7 @@ public class IngredientControllerTest {
 					MockMvcRequestBuilders.get("/recipe/1/ingredient/2/show")
 				).
 				andExpect(status().isOk()).
-				andExpect(view().name("recettes/ingredients/montrerIngredient")).
+				andExpect(view().name("recipe/ingredient/show")).
 				andExpect(model().attributeExists("ingredient"));
 	}
 	
@@ -116,7 +116,7 @@ public class IngredientControllerTest {
         		MockMvcRequestBuilders.get("/recipe/1/ingredient/2/update")
     		).
     		andExpect(status().isOk()).
-    		andExpect(view().name("recettes/ingredients/formulaireIngredient")).
+    		andExpect(view().name("recipe/ingredient/ingredientform")).
     		andExpect(model().attributeExists("ingredient")).
     		andExpect(model().attributeExists("listeUnitesDeMesure"));
 	}
@@ -166,7 +166,7 @@ public class IngredientControllerTest {
 					MockMvcRequestBuilders.get("/recipe/1/ingredient/new")
 				).
 				andExpect(status().isOk()).
-				andExpect(view().name("recettes/ingredients/formulaireIngredient")).
+				andExpect(view().name("recipe/ingredient/ingredientform")).
 				andExpect(model().attributeExists("ingredient")).
 				andExpect(model().attributeExists("listeUnitesDeMesure"));
 	}

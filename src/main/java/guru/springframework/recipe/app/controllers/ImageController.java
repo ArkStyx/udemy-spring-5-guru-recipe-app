@@ -38,8 +38,5 @@ public class ImageController {
 	
 	// TODO CREER imageuploadform.html
 	// TODO MODIFIER show.html - AJOUTER BOUTON QUI POINTE VERS imageuploadform.html + AJOUTER LES IMAGES ISSUES DE resources/static/images
-	// TODO AJOUTER TEST getImageForm() SUR LE FORMULAIRE imageuploadform.html DANS ImageControllerTest
-
-	
 	
 }

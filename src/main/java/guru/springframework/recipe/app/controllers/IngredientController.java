@@ -33,14 +33,14 @@ public class IngredientController {
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
 		log.debug("Id de la recette pour les ingredients recherches : " + id);
 		model.addAttribute("recette", recipeService.findCommandById(id));
-		return "recettes/ingredients/listeIngredients";
+		return "recipe/ingredient/list";
 	}
 	
 	// XXX correspondance nom methode JAVA GURU - John Thompson : showRecipeIngredient()
 	@GetMapping(value = "/recipe/{idRecette}/ingredient/{idIngredient}/show")
 	public String afficherIngredientDansRecette(Model model, @PathVariable Long idRecette, @PathVariable Long idIngredient) {
 		model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
-		return "recettes/ingredients/montrerIngredient";
+		return "recipe/ingredient/show";
 	}
 	
 	// XXX correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
@@ -48,7 +48,7 @@ public class IngredientController {
 	public String modifierIngredientDansRecette(Model model, @PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
     	model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
     	model.addAttribute("listeUnitesDeMesure", unitOfMeasureService.recupererToutesLesUnitesDeMesure());
-		return "recettes/ingredients/formulaireIngredient";
+		return "recipe/ingredient/ingredientform";
 	}
 
 	// XXX correspondance nom methode JAVA GURU - John Thompson : saveOrUpdate()
@@ -77,7 +77,7 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientCommand);
         model.addAttribute("listeUnitesDeMesure", linkedHashSetUnitOfMeasureCommand);
         
-        return "recettes/ingredients/formulaireIngredient";
+        return "recipe/ingredient/ingredientform";
     }
 
 	// XXX correspondance nom methode JAVA GURU - John Thompson : deleteIngredient()
