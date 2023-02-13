@@ -1,0 +1,72 @@
+
+package guru.springframework.recipe.app.services;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockMultipartFile;
+
+import guru.springframework.recipe.app.domain.Recipe;
+import guru.springframework.recipe.app.repositories.RecipeRepository;
+
+public class ImageServiceImplTest {
+
+	ImageServiceImpl imageServiceImpl;
+	
+	@Mock
+	RecipeRepository recipeRepository;
+	
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
+		imageServiceImpl = new ImageServiceImpl(recipeRepository);
+	}
+	
+	@Test
+	public void saveImageFile() throws Exception {
+		
+    	/* Given */
+		Long idRecette = 1L;
+
+		String name = "file";
+		String originalFileName = "testing.txt";
+		String contentType = "text/plain";
+		byte[] content = "Spring Framework Guru".getBytes();
+		MockMultipartFile mockMultipartFile = new MockMultipartFile(name, originalFileName, contentType, content);
+		
+		Recipe recipe = new Recipe();
+		recipe.setId(idRecette);
+		
+		Optional<Recipe> optionalRecipe = Optional.of(recipe);
+		
+		when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
+		
+		ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
+		
+		
+    	/* When */
+		imageServiceImpl.saveImageFile(idRecette, mockMultipartFile);
+		
+    	/* Then */
+		verify(recipeRepository, times(1)).save(argumentCaptor.capture());
+		Recipe savedRecipe = argumentCaptor.getValue();
+		assertEquals(mockMultipartFile.getBytes().length, savedRecipe.getImage().length);
+		
+
+		// TODO TEST PERSO - FIXME A VERIFIER !!!!
+		verify(recipeRepository, times(1)).findById(anyLong());
+		verify(recipeRepository, times(1)).save(any(Recipe.class));
+	}
+}
