@@ -8,7 +8,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -63,10 +62,8 @@ public class ImageServiceImplTest {
 		verify(recipeRepository, times(1)).save(argumentCaptor.capture());
 		Recipe savedRecipe = argumentCaptor.getValue();
 		assertEquals(mockMultipartFile.getBytes().length, savedRecipe.getImage().length);
-		
-
-		// TODO TEST PERSO - FIXME A VERIFIER !!!!
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, times(1)).save(any(Recipe.class));
 	}
+	
 }

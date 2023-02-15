@@ -1,5 +1,7 @@
 package guru.springframework.recipe.app.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -69,7 +72,7 @@ public class ImageControllerTest {
 	public void handleImagePost() throws Exception {
 		
 		/* Given */
-		String name = "file";
+		String name = "imagefile";
 		String originalFileName = "testing.txt";
 		String contentType = "text/plain";
 		byte[] content = "Spring Framework Guru".getBytes();
@@ -83,6 +86,42 @@ public class ImageControllerTest {
 				).
 				andExpect(status().is3xxRedirection()).
 				andExpect(header().string("Location", "/recipe/1/show"));
+		
+		verify(imageService, times(1)).saveImageFile(anyLong(), any());
 	}
+	
+	@Test
+	void renderImageFromDB() throws Exception {
+		
+		/* Given */
+		String fakeImage = "fake image text";
+		byte[] fakeImageByte = fakeImage.getBytes();
+		
+		int i = 0;
+		Byte[] imageFromDB = new Byte[fakeImageByte.length];
+		for (byte primByte : fakeImageByte) {
+			imageFromDB[i++] = primByte;
+		}
+		
+		RecipeCommand recipeCommand = new RecipeCommand();
+		recipeCommand.setId(1L);
+		recipeCommand.setImage(imageFromDB);
+		
+		when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+		
+		/* When */
+		
+		/* Then */
+		MockHttpServletResponse response = mockMvc.perform(
+					MockMvcRequestBuilders.get("/recipe/1/recipeimage")
+				).
+				andExpect(status().isOk()).
+				andReturn().getResponse();
+		
+		byte[] reponseBytes = response.getContentAsByteArray();
+		
+		assertEquals(fakeImageByte.length, reponseBytes.length);
+	}
+	
 		
 }
