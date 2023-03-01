@@ -1,7 +1,8 @@
 package guru.springframework.recipe.app.services;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -83,7 +84,7 @@ class RecipeServiceImplTestJupiter {
 
         RecipeCommand commandById = recipeServiceImpl.findCommandById(1L);
 		
-		assertNotNull("Null Recipe Returned", commandById);
+        assertNotNull(commandById);
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
 	}
