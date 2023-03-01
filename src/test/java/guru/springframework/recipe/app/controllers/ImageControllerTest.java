@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +43,9 @@ public class ImageControllerTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(imageController).
+				setControllerAdvice(new ControllerExceptionHandler()).
+				build();
 	}
 	
 	@Test
@@ -122,6 +125,15 @@ public class ImageControllerTest {
 		
 		assertEquals(fakeImageByte.length, reponseBytes.length);
 	}
+
+	@Test
+	void handleNumberFormatException() throws Exception {
+
+		mockMvc.perform(
+					get("/recipe/azerty/recipeimage")
+				).
+				andExpect(status().isBadRequest()).
+				andExpect(view().name("400error"));
+	}
 	
-		
 }

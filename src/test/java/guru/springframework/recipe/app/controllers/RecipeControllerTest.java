@@ -40,7 +40,9 @@ class RecipeControllerTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(recipeController).
+				setControllerAdvice(new ControllerExceptionHandler()).
+				build();
 	}
 
 	@Test
@@ -155,4 +157,5 @@ class RecipeControllerTest {
 				andExpect(status().isBadRequest()).
 				andExpect(view().name("400error"));
 	}
+	
 }
