@@ -64,17 +64,6 @@ class RecipeControllerTest {
 				.andExpect(resultMatcherViewNameIndex)
 				.andExpect(resultMatcherModelAttributeExists);
 	}
-
-	@Test
-	void getRecipeNotFound() throws Exception {
-		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
-		
-		mockMvc.perform(
-					get("/recipe/1/show/")
-				).
-				andExpect(status().isNotFound()).
-				andExpect(view().name("404error"));
-	}
 	
 	@Test
 	void getNewRecipeForm() throws Exception {
@@ -135,6 +124,7 @@ class RecipeControllerTest {
 				andExpect(model().attributeExists("recette"));
 	}
 	
+	@Test
 	void deleteAction() throws Exception {
 		mockMvc.perform(
 					MockMvcRequestBuilders.get("/recipe/1/delete")
@@ -145,4 +135,24 @@ class RecipeControllerTest {
 		verify(recipeService, times(1)).deleteById(anyLong());
 	}
 	
+	@Test
+	void handleNotFound() throws Exception {
+		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+		
+		mockMvc.perform(
+					get("/recipe/1/show/")
+				).
+				andExpect(status().isNotFound()).
+				andExpect(view().name("404error"));
+	}
+	
+	@Test
+	void handleNumberFormatException() throws Exception {
+
+		mockMvc.perform(
+					get("/recipe/azerty/show/")
+				).
+				andExpect(status().isBadRequest()).
+				andExpect(view().name("400error"));
+	}
 }
