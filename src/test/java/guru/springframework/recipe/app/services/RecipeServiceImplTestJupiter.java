@@ -129,4 +129,5 @@ class RecipeServiceImplTestJupiter {
         	recipeServiceImpl.findById(1L);
         });
     }
+    
 }

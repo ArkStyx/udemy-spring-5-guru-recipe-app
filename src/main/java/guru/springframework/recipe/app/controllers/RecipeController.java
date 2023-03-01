@@ -1,14 +1,19 @@
 package guru.springframework.recipe.app.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import guru.springframework.recipe.app.commands.RecipeCommand;
+import guru.springframework.recipe.app.exceptions.NotFoundException;
 import guru.springframework.recipe.app.services.RecipeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,33 +35,42 @@ public class RecipeController {
 	private static final String REDIRECTION = "redirect:/";
 	
     @GetMapping(value = "/recipe/{idRecupereDansUrl}/show")
-	public String getRecipeById(Model model, @PathVariable("idRecupereDansUrl") Long id) {
+	public String getRecipe(Model model, @PathVariable("idRecupereDansUrl") Long id) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.findById(id));
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "show";
 	}
 	
     @GetMapping(value = "/recipe/new")
-	public String createRecipe(Model model) {
+	public String getNewRecipeForm(Model model) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, new RecipeCommand());
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "recipeform";
 	}
 	
     @GetMapping(value ="/recipe/{idRecupereDansUrl}/update")
-	public String updateRecipe(Model model, @PathVariable("idRecupereDansUrl") Long id) {
+	public String updateView(Model model, @PathVariable("idRecupereDansUrl") Long id) {
 		model.addAttribute(NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF, recipeService.findCommandById(id));
 		return NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "recipeform";
 	}
 	
 	@PostMapping(value = NOM_ACTION_FORM_THYMELEAF_DANS_TEMPLATE)
-	public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+	public String postNewRecipeForm(@ModelAttribute RecipeCommand command) {
 		RecipeCommand recetteSauvegardee = recipeService.saveRecipeCommand(command);
 		return REDIRECTION + "recipe/" + recetteSauvegardee.getId() + "/show";
 	}
 
     @GetMapping("recipe/{idPourSuppression}/delete")
-	public String deleteById(@PathVariable("idPourSuppression") Long id) {
+	public String deleteAction(@PathVariable("idPourSuppression") Long id) {
 		log.info("Id de la recette supprimée : " + id);
 		recipeService.deleteById(id);
 		return REDIRECTION;
 	}
+    
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound() {
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.setViewName("404error");
+    	return modelAndView;
+    }
+    
 }

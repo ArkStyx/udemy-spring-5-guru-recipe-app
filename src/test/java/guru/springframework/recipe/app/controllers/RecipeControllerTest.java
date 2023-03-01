@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import guru.springframework.recipe.app.commands.RecipeCommand;
 import guru.springframework.recipe.app.domain.Recipe;
+import guru.springframework.recipe.app.exceptions.NotFoundException;
 import guru.springframework.recipe.app.services.RecipeService;
 
 class RecipeControllerTest {
@@ -41,9 +43,8 @@ class RecipeControllerTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
 	}
 
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testGetRecipe()
 	@Test
-	void testGetRecipeById() throws Exception {
+	void getRecipe() throws Exception {
 		
 		Long idRecette = 1L;
 		
@@ -63,10 +64,20 @@ class RecipeControllerTest {
 				.andExpect(resultMatcherViewNameIndex)
 				.andExpect(resultMatcherModelAttributeExists);
 	}
-	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testGetNewRecipeForm()
+
 	@Test
-	void testCreateRecipe() throws Exception {
+	void getRecipeNotFound() throws Exception {
+		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+		
+		mockMvc.perform(
+					get("/recipe/1/show/")
+				).
+				andExpect(status().isNotFound()).
+				andExpect(view().name("404error"));
+	}
+	
+	@Test
+	void getNewRecipeForm() throws Exception {
 		
 		/* Given */
 
@@ -82,9 +93,8 @@ class RecipeControllerTest {
 		
 	}
 
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testPostNewRecipeForm()
 	@Test
-	void testSaveOrUpdate() throws Exception {
+	void postNewRecipeForm() throws Exception {
 		
 		/* Given */
 		Long idRecette = 2L;
@@ -105,9 +115,8 @@ class RecipeControllerTest {
 			andExpect(view().name("redirect:/recipe/2/show"));
 	}
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testGetUpdateView()
 	@Test
-	void testUpdateRecipe() throws Exception {
+	void updateView() throws Exception {
 		
 		/* Given */
 		Long idRecette = 2L;
@@ -126,8 +135,7 @@ class RecipeControllerTest {
 				andExpect(model().attributeExists("recette"));
 	}
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testDeleteAction()
-	void testDeleteById() throws Exception {
+	void deleteAction() throws Exception {
 		mockMvc.perform(
 					MockMvcRequestBuilders.get("/recipe/1/delete")
 				).
