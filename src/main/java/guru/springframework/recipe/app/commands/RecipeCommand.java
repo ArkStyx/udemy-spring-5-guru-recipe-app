@@ -36,7 +36,7 @@ public class RecipeCommand {
     
     @Min(1)
     @Max(100)
-	private Integer serving;
+	private Integer servings;
     
 	private String source;
 	

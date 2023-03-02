@@ -32,7 +32,7 @@ public class IngredientController {
 	@GetMapping(value = "/recipe/{idRecetteDansUrl}/ingredients")
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
 		log.debug("Id de la recette pour les ingredients recherches : " + id);
-		model.addAttribute("recette", recipeService.findCommandById(id));
+		model.addAttribute("recipe", recipeService.findCommandById(id));
 		return "recipe/ingredient/list";
 	}
 	

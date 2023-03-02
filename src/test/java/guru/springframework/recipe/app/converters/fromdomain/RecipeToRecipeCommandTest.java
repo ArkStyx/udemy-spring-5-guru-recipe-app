@@ -86,7 +86,7 @@ class RecipeToRecipeCommandTest {
 		source.setDescription(DESCRIPTION);
 		source.setDifficulty(DIFFICULTY);
 		source.setDirections(DIRECTIONS);
-        source.setServing(SERVING);
+        source.setServings(SERVING);
         source.setSource(SOURCE);
         source.setUrl(URL);
         source.setNotes(notes);
@@ -106,7 +106,7 @@ class RecipeToRecipeCommandTest {
         assertEquals(DESCRIPTION, destination.getDescription());
         assertEquals(DIFFICULTY, destination.getDifficulty());
         assertEquals(DIRECTIONS, destination.getDirections());
-        assertEquals(SERVING, destination.getServing());
+        assertEquals(SERVING, destination.getServings());
         assertEquals(SOURCE, destination.getSource());
         assertEquals(URL, destination.getUrl());
         assertEquals(NOTES_ID, destination.getNotes().getId());

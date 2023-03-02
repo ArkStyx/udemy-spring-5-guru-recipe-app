@@ -97,7 +97,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 		recetteGuacamole.setDirections(directionGuacamoleBuffer.toString());
 		recetteGuacamole.setNotes(noteGuacamole);
 		recetteGuacamole.setPrepTime(10);
-		recetteGuacamole.setServing(2);
+		recetteGuacamole.setServings(2);
 		recetteGuacamole.setSource("Simply Recipes");
 		recetteGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
 		
@@ -157,7 +157,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
 		recetteTacos.setDirections(directionTacosBuffer.toString());
 		recetteTacos.setNotes(noteTacos);
 		recetteTacos.setPrepTime(20);
-		recetteTacos.setServing(4);
+		recetteTacos.setServings(4);
 		recetteTacos.setSource("Simply Recipes");
 		recetteTacos.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
 

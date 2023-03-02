@@ -31,11 +31,11 @@
 						<h1 class="panel-title">Ingredients</h1>
 					</div>
 					<div class="col-md-1">
-                            <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/new'}" role="button">Nouvel Ingredient</a>
+                            <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">Nouvel Ingredient</a>
                     </div>
 					<div class="panel-body">
 					
-						<div class="table-responsive" th:if="${not #lists.isEmpty(recette.ingredients)}">
+						<div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
 							<table class="table table-hover ">
 	                            <thead class="thead-inverse">
 		                            <tr>
@@ -60,7 +60,7 @@
 	                                <td><a href="#">Mettre à jour</a></td>
 	                                <td><a href="#">Supprimer</a></td>
 	                            </tr>
-	                            <tr th:each="ingredient : ${recette.ingredients}">
+	                            <tr th:each="ingredient : ${recipe.ingredients}">
 	                                <td th:text="${ingredient.id}">
 	                                	111
 	                                </td>
@@ -68,13 +68,13 @@
 	                                	Recette 3
 	                                </td>
 	                                <td>
-										<a href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/' + ${ingredient.id} + '/show'}">Voir</a>
+										<a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">Voir</a>
 									</td>
 	                                <td>
-										<a href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Mettre à jour</a>
+										<a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Mettre à jour</a>
 									</td>
 	                                <td>
-										<a href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Supprimer</a>
+										<a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Supprimer</a>
 									</td>
 	                            </tr>
                             </table>

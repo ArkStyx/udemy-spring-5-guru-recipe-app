@@ -70,7 +70,7 @@ public class IngredientControllerTest {
 				).
 				andExpect(status().isOk()).
 				andExpect(view().name("recipe/ingredient/list")).
-				andExpect(model().attributeExists("recette"));
+				andExpect(model().attributeExists("recipe"));
 		
 		verify(recipeService, times(1)).findCommandById(anyLong());
 

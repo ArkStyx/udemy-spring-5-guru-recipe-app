@@ -31,11 +31,11 @@
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-md-3">
-		                    	<h1 class="panel-title" th:text="${recette.description}">Description de la recette</h1>
+		                    	<h1 class="panel-title" th:text="${recipe.description}">Description de la recette</h1>
 		                    </div>
 							<div class="col-md-1">
 								<a class="btn btn-default" href="#"
-	                               th:href="@{'/recipe/' + ${recette.id} + '/image'}" role="button">Change Image</a>
+	                               th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
 							</div>
 						</div>  
 					</div>
@@ -49,7 +49,7 @@
                                 <ul>
 									<li th:remove="all">Mechoui Tex-Mex</li>
                                    	<li th:remove="all">Kebab Rwandais</li>
-                                    <li th:each="categorie : ${recette.categories}" th:text="${categorie.description}">Ravioli Argentins</li>
+                                    <li th:each="categorie : ${recipe.categories}" th:text="${categorie.description}">Ravioli Argentins</li>
                                 </ul>
                             </div>
 
@@ -65,13 +65,13 @@
                                 <h5>Temps de préparation : </h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${(recette.prepTime + ' minutes')}">30 min</p>
+                                <p th:text="${(recipe.prepTime + ' minutes')}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulté : </h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recette.difficulty}">Facile</p>
+                                <p th:text="${recipe.difficulty}">Facile</p>
                             </div>
                         </div>
                         <div class="row">
@@ -79,13 +79,13 @@
                                 <h5>Temps de cuisson : </h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${(recette.cookTime + ' minutes')}">30 min</p>
+                                <p th:text="${(recipe.cookTime + ' minutes')}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Nombre de personnes : </h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recette.serving}" >4</p>
+                                <p th:text="${recipe.servings}" >4</p>
                             </div>
                         </div>
                         <div class="row">
@@ -93,13 +93,13 @@
                                 <h5>Source : </h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recette.source}">recettes-faciles.fr</p>
+                                <p th:text="${recipe.source}">recettes-faciles.fr</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>URL : </h5>
                             </div>
 	                        <div class="col-md-3">
-                                <p><a href="#" th:href="@{recette.url}" >Voir lien original</a></p>
+                                <p><a href="#" th:href="@{recipe.url}" >Voir lien original</a></p>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
 	                                <h1 class="panel-title">Ingredients</h1>
 	                            </div>
 	                           <div class="col-md-1">
-	                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recette.id} + '/ingredients'}" role="button">Voir</a>
+	                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">Voir</a>
 	                            </div>
 	                    	</div>
                     	</div>
@@ -122,7 +122,7 @@
 	                                <ul>		
 										<li th:remove="all">1 Cup of milk</li>
                                     	<li th:remove="all">1 Teaspoon of chocolate</li>
-	                                    <li th:each="ingredient : ${recette.ingredients}" 
+	                                    <li th:each="ingredient : ${recipe.ingredients}" 
 	                                    	th:text="${(ingredient.amount + ' ' + 
 	                                    			ingredient?.unitOfMeasure?.description + ' - ' + 
 	                                    			ingredient.description)}">1 Teaspoon of Sugar
@@ -139,7 +139,7 @@
 	                    <div class="panel-body">
 	                        <div class="row">
 	                            <div class="col-md-12">
-	                                <p th:text="${recette.directions}">blablabla étapes</p>
+	                                <p th:text="${recipe.directions}">blablabla étapes</p>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -151,7 +151,7 @@
 	                    <div class="panel-body">
 	                        <div class="row">
 	                            <div class="col-md-12">
-	                                <p th:text="${recette?.notes?.recipeNotes}">blablabla notes</p>
+	                                <p th:text="${recipe?.notes?.recipeNotes}">blablabla notes</p>
 	                            </div>
 	                        </div>
 	                    </div>

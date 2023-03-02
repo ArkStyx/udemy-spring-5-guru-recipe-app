@@ -32,9 +32,9 @@ public class RecipeController {
 	
     private static final String RECIPE_RECIPEFORM_URL = NOM_REPERTOIRE_THYMELEAF + SEPARATEUR_REPERTOIRE_ET_TEMPLATE_THYMELEAF + "recipeform";
 	
-	private static final String NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF = "recette";
+	private static final String NOM_ATTRIBUT_DANS_TEMPLATE_THYMELEAF = "recipe";
 
-	private static final String NOM_ACTION_FORM_THYMELEAF_DANS_TEMPLATE = "formulaireRecette";
+	private static final String NOM_ACTION_FORM_THYMELEAF_DANS_TEMPLATE = "recipe";
 	
 	private static final String REDIRECTION = "redirect:/";
 	
@@ -77,5 +77,19 @@ public class RecipeController {
 		recipeService.deleteById(id);
 		return REDIRECTION;
 	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // TODO FIXME http://localhost:8080/recipe/1/ingredients
+    
+    
     
 }
