@@ -27,7 +27,9 @@ public class IngredientController {
 	private final IngredientService ingredientService;
 	private final UnitOfMeasureService unitOfMeasureService;
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : listIngredients()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : listIngredients()
+	 */
 	@GetMapping(value = "/recipe/{idRecetteDansUrl}/ingredients")
 	public String recupererListeIngredients(Model model, @PathVariable("idRecetteDansUrl") Long id) {
 		log.debug("Id de la recette pour les ingredients recherches : " + id);
@@ -35,14 +37,18 @@ public class IngredientController {
 		return "recipe/ingredient/list";
 	}
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : showRecipeIngredient()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : showRecipeIngredient()
+	 */
 	@GetMapping(value = "/recipe/{idRecette}/ingredient/{idIngredient}/show")
 	public String afficherIngredientDansRecette(Model model, @PathVariable Long idRecette, @PathVariable Long idIngredient) {
 		model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
 		return "recipe/ingredient/show";
 	}
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : updateRecipeIngredient()
+	 */
     @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
 	public String modifierIngredientDansRecette(Model model, @PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
     	model.addAttribute("ingredient", ingredientService.recupererParIdRecetteEtIdIngredient(idRecette, idIngredient));
@@ -50,7 +56,9 @@ public class IngredientController {
 		return "recipe/ingredient/ingredientform";
 	}
 
-	// XXX correspondance nom methode JAVA GURU - John Thompson : saveOrUpdate()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : saveOrUpdate()
+	 */
 	@PostMapping("recipe/{recipeId}/ingredient")
 	public String sauvegarderOuModifierIngredientDansRecette(@ModelAttribute IngredientCommand ingredientCommand) {
 		IngredientCommand ingredientSauvegarde = ingredientService.sauvegarderIngredient(ingredientCommand);
@@ -60,7 +68,9 @@ public class IngredientController {
 		return "redirect:/recipe/" + idRecette + "/ingredient/" + idIngredient + "/show";
 	}
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : newIngredient()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : newIngredient()
+	 */
     @GetMapping("recipe/{recipeId}/ingredient/new")
     public String creerNouvelIngredient(Model model, @PathVariable("recipeId") Long idRecette) {
     	
@@ -79,7 +89,9 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-	// XXX correspondance nom methode JAVA GURU - John Thompson : deleteIngredient()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : deleteIngredient()
+	 */
     @GetMapping("recipe/{recipeId}/ingredient/{id}/delete")
     public String supprimerIngredient(@PathVariable("recipeId") Long idRecette, @PathVariable("id") Long idIngredient) {
 

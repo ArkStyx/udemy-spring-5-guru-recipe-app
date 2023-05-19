@@ -83,7 +83,9 @@ public class IngredientServiceImplTestJupiter {
         verify(recipeRepository, times(1)).findById(anyLong());
 	}
 	
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testSaveRecipeCommand()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : testSaveRecipeCommand()
+	 */
     @Test
     public void testSauvegarderIngredient() throws Exception {
     	
@@ -116,7 +118,9 @@ public class IngredientServiceImplTestJupiter {
         verify(recipeRepository, times(1)).save(any(Recipe.class));
     }
     
-	// XXX correspondance nom methode JAVA GURU - John Thompson : testDeleteById()
+	/*
+	 * correspondance nom methode JAVA GURU - John Thompson : testDeleteById()
+	 */
 	@Test
     public void testSupprimerIngredientDansRecetteParId() throws Exception {
     	
